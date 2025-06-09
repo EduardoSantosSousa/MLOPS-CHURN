@@ -54,66 +54,94 @@ nav a {
   border-radius: 4px;
 }
 
-/* Plans container */
+/* Container dos planos */
 .plans {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
-  padding: 40px 20px;
-  background: #f5f5f5;
+  gap: 30px;
+  padding: 60px 20px;
+  background: #fafafa;
 }
 
-/* Individual plan box */
+/* Cards de plano */
 .plan {
-  border: 2px solid #ff6600;
-  padding: 20px;
-  border-radius: 8px;
-  width: 300px;
-  background-color: white;
-  text-align: center;
-}
-
-/* Plan card inspirado no Canva */
-.plan-card {
-  background: linear-gradient(135deg, #ff6600, #ff944d);
-  color: white;
-  padding: 30px;
-  border-radius: 12px;
-  max-width: 320px;
-  margin: 40px auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-.card-header h2 {
-  margin-bottom: 10px;
-}
-
-.card-features {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0;
-}
-
-.card-features li {
-  margin-bottom: 8px;
-}
-
-.card-price strong {
-  font-size: 1.3em;
-}
-
-.card-price button {
-  margin-top: 10px;
-  padding: 10px 20px;
   background: white;
-  color: #ff6600;
-  border: none;
-  font-weight: bold;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 280px;
+  padding: 30px 25px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 3px solid transparent;
   cursor: pointer;
-  border-radius: 4px;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Hover nos cards */
+.plan:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(255, 102, 0, 0.3);
+  border-color: #ff6600;
+}
+
+/* Título do plano */
+.plan h2 {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  color: #ff6600;
+  font-weight: 700;
+}
+
+/* Lista de recursos */
+.plan p {
+  font-size: 1.1rem;
+  margin: 10px 0;
+  color: #555;
+  flex-grow: 1;
+}
+
+/* Botão de ação */
+.plan button {
+  background: #ff6600;
+  border: none;
+  color: white;
+  padding: 12px 0;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 25px;
+  transition: background-color 0.3s ease;
+}
+
+.plan button:hover {
+  background-color: #e65500;
+}
+
+/* Destaque para plano intermediário (exemplo) */
+.plan.intermediate {
+  border-color: #ff944d;
+  box-shadow: 0 10px 30px rgba(255, 148, 77, 0.4);
+  background: linear-gradient(135deg, #fff4e6, #ffebd1);
+}
+
+.plan.intermediate h2 {
+  color: #ff944d;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .plans {
+    flex-direction: column;
+    align-items: center;
+  }
+  .plan {
+    width: 90%;
+    max-width: 400px;
+  }
 }
 
 /* Footer */
@@ -250,7 +278,7 @@ footer {
 }
 
 .slide-track .imagem {
-  width: 300px;
+  width: 650px;
   flex-shrink: 0;
   padding: 0 20px;
 }

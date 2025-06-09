@@ -21,6 +21,7 @@ def login():
             return render_template('index.html', error='Credenciais inválidas')
     return redirect(url_for('index'))
 
+
 # Página do dashboard após login
 @app.route('/dashboard', methods=['GET', 'POST'])
 def dashboard():
