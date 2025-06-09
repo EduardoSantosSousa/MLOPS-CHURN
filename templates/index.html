@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>TeleConecta</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<script>
+  function showTab(tab) {
+    document.getElementById('tab-user').style.display = 'none';
+    document.getElementById('tab-staff').style.display = 'none';
+    document.getElementById('tab-' + tab).style.display = 'block';
+
+    document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+    if (tab === 'user') {
+      document.querySelectorAll('.tab-button')[0].classList.add('active');
+    } else {
+      document.querySelectorAll('.tab-button')[1].classList.add('active');
+    }
+  }
+
+  // Mostrar aba de usuário por padrão
+  showTab('user');
+</script>
+
+<body>
+
+<header>
+  <h1>TeleConecta</h1>
+  <nav>
+    <a href="/">Início</a>
+    <a href="#planos">Planos</a>
+    <a href="/login">Área Restrita</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Conectando você ao futuro</h1>
+  <p>Internet, TV e telefone com a melhor tecnologia do mercado</p>
+  <a href="#login" class="cta-button">Área de Acesso</a>
+</section>
+
+<section class="banner-imagens-superior">
+  <div class="slide-track">
+    <div class="imagem"><img src="{{ url_for('static', filename='img/banner1.png') }}" alt="Banner 1"></div>
+    <div class="imagem"><img src="{{ url_for('static', filename='img/banner2.png') }}" alt="Banner 2"></div>
+    <div class="imagem"><img src="{{ url_for('static', filename='img/banner3.png') }}" alt="Banner 3"></div>
+    
+    <!-- Duplicadas para looping contínuo -->
+    <div class="imagem"><img src="{{ url_for('static', filename='img/banner1.png') }}" alt="Banner 1"></div>
+    <div class="imagem"><img src="{{ url_for('static', filename='img/banner2.png') }}" alt="Banner 2"></div>
+    <div class="imagem"><img src="{{ url_for('static', filename='img/banner3.png') }}" alt="Banner 3"></div>
+  </div>
+</section>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.banner-slide');
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active');
+      if (i === index) slide.classList.add('active');
+    });
+  }
+
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    showSlide(currentSlide);
+  }
+
+  // Troca automática a cada 3 segundos
+  setInterval(nextSlide, 3000);
+</script>
+
+<section class="login-area" id="login">
+  <h2>Área de Acesso</h2>
+  <div class="login-tabs">
+    <button class="tab-button active" onclick="showTab('user')">Usuário</button>
+    <button class="tab-button" onclick="showTab('staff')">Funcionário</button>
+  </div>
+
+  <!-- Usuário -->
+  <div class="login-tab-content" id="tab-user">
+    <form method="POST" action="/login">
+      <input type="email" name="email" placeholder="E-mail do usuário" required>
+      <input type="password" name="password" placeholder="Senha" required>
+      <button class="cta-button" type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <!-- Funcionário -->
+  <div class="login-tab-content" id="tab-staff" style="display: none;">
+    <form method="POST" action="/login">
+      <input type="email" name="email" placeholder="E-mail corporativo" required>
+      <input type="password" name="password" placeholder="Senha" required>
+      <button class="cta-button" type="submit">Entrar</button>
+    </form>
+  </div>
+</section>
+
+<section class="plans" id="planos">
+  <div class="plan">
+    <h2>Básico</h2>
+    <p>100MB de internet</p>
+    <p>TV com 40 canais</p>
+    <p>Telefone fixo local</p>
+  </div>
+  <div class="plan">
+    <h2>Intermediário</h2>
+    <p>300MB de internet</p>
+    <p>TV com 90 canais</p>
+    <p>Chamadas ilimitadas</p>
+  </div>
+  <div class="plan">
+    <h2>Avançado</h2>
+    <p>600MB de internet</p>
+    <p>TV HD com 150 canais</p>
+    <p>Telefone + celular ilimitado</p>
+  </div>
+</section>
+
+<footer>
+  <p>&copy; 2025 TeleConecta - Todos os direitos reservados</p>
+</footer>
+
+</body>
+</html>

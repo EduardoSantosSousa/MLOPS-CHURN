@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Previsão de Cancelamento</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<section class="login-area">
+  <h2>Previsão de Churn</h2>
+  <form method="POST" action="/dashboard">
+    <label>ID do Cliente:</label><br>
+    <input type="text" name="client_id" required><br>
+
+    <label>Meses de Contrato:</label><br>
+    <input type="number" name="months" required><br>
+
+    <label>Valor da Fatura:</label><br>
+    <input type="number" name="bill" required><br>
+
+    <button type="submit">Prever</button>
+  </form>
+
+  {% if prediction %}
+  <p style="margin-top: 20px;"><strong>Resultado:</strong> {{ prediction }}</p>
+  {% endif %}
+</section>
+
+</body>
+</html>
+
+

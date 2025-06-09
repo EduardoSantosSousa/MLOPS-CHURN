@@ -1,0 +1,287 @@
+/* Reset box-sizing para todos */
+* {
+  box-sizing: border-box;
+}
+
+/* Estilos básicos do corpo */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  color: #333;
+}
+
+/* Header */
+header {
+  background-color: #ff6600;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+nav a {
+  margin: 0 15px;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* Hero */
+.hero {
+  background: linear-gradient(to right, #ff6600, #ff944d);
+  color: white;
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.hero h1 {
+  font-size: 2.5em;
+  margin: 0 0 10px;
+}
+
+.hero p {
+  font-size: 1.1em;
+  margin: 10px 0 20px;
+}
+
+/* Call to action button */
+.cta-button {
+  background-color: white;
+  color: #ff6600;
+  padding: 12px 25px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Plans container */
+.plans {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 20px;
+  background: #f5f5f5;
+}
+
+/* Individual plan box */
+.plan {
+  border: 2px solid #ff6600;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  background-color: white;
+  text-align: center;
+}
+
+/* Plan card inspirado no Canva */
+.plan-card {
+  background: linear-gradient(135deg, #ff6600, #ff944d);
+  color: white;
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 320px;
+  margin: 40px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.card-header h2 {
+  margin-bottom: 10px;
+}
+
+.card-features {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.card-features li {
+  margin-bottom: 8px;
+}
+
+.card-price strong {
+  font-size: 1.3em;
+}
+
+.card-price button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: white;
+  color: #ff6600;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 100%;
+}
+
+/* Footer */
+footer {
+  background-color: #222;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .plans {
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 10px;
+  }
+
+  .hero h1 {
+    font-size: 2em;
+  }
+
+  .hero p {
+    font-size: 1em;
+  }
+
+  nav a {
+    display: block;
+    margin: 10px 0;
+  }
+
+  .cta-button {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.5em;
+  }
+
+  .plan,
+  .plan-card {
+    width: 90%;
+  }
+}
+
+/* Área de login */
+.login-area {
+  max-width: 450px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #fff3e6;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Tabs de login */
+.login-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 10px;
+}
+
+.tab-button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #eee;
+  cursor: pointer;
+  border-radius: 20px;
+  font-weight: bold;
+  color: #555;
+  transition: all 0.3s ease;
+}
+
+.tab-button.active {
+  background-color: #ff6600;
+  color: white;
+}
+
+/* Conteúdo das abas */
+.login-tab-content {
+  display: none; /* será ativado via JS na aba ativa */
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.login-tab-content.active {
+  display: block;
+}
+
+/* Formulário dentro do conteúdo das abas */
+.login-tab-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.login-tab-content input,
+.login-tab-content select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+}
+
+.login-tab-content button {
+  width: 100%;
+  padding: 12px;
+  background-color: #ff6600;
+  color: white;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.banner-imagens-superior {
+  overflow: hidden;
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 20px 0;
+}
+
+.slide-track {
+  display: flex;
+  width: calc(300px * 6); /* largura da imagem x número de imagens */
+  animation: scroll 20s linear infinite;
+}
+
+.slide-track .imagem {
+  width: 300px;
+  flex-shrink: 0;
+  padding: 0 20px;
+}
+
+.slide-track img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.slide-track .imagem img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;  /* Suaviza o efeito */
+}
+
+.slide-track .imagem img:hover {
+  transform: scale(1.05); /* Aumenta 5% ao passar o mouse */
+}
+
