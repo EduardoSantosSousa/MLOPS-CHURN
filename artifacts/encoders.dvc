@@ -1,0 +1,6 @@
+outs:
+- md5: 531e1844d9be491cb16e0cabee023bad.dir
+  size: 4061
+  nfiles: 1
+  hash: md5
+  path: encoders
