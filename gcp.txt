@@ -1,0 +1,1 @@
+gcloud auth activate-service-account --key-file="D:\MLOPS\MLOPS_PROJECT_TELCO_CUSTUMER_CHURCH\Project_keys.json"

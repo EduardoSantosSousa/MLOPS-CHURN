@@ -1,0 +1,13 @@
+pandas
+numpy
+pyyaml
+psycopg2-binary
+scikit-learn
+matplotlib
+seaborn
+shap
+imblearn
+mlflow
+xgboost
+joblib
+dvc

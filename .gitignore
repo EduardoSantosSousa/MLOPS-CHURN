@@ -1,0 +1,26 @@
+.git
+.env
+.DS_Store
+airflow_settings.yaml
+__pycache__/
+.astro/
+venv/
+airflow-webserver.pid
+webserver_config.py
+airflow.cfg
+airflow.db
+Documentation_Review/
+Project_keys.json
+include/
+artifacts/data
+artifacts/processed/
+artifacts/model/
+artifacts/encoders/
+MLOPS_PROJECT_TELCO_CUSTUMER_CHURCH.egg-info/
+mlruns/
+notebook/
+logs/
+
+# Ignorar modelos treinados
+*.pkl
+*.joblib
