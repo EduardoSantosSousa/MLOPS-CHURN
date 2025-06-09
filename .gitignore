@@ -18,7 +18,6 @@ artifacts/model/
 artifacts/encoders/
 MLOPS_PROJECT_TELCO_CUSTUMER_CHURCH.egg-info/
 mlruns/
-logs/
 
 # Ignorar modelos treinados
 *.pkl
