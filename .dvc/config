@@ -1,0 +1,4 @@
+[core]
+    remote = project_telco_churn
+['remote "project_telco_churn"']
+    url = gs://my-dvc-bucket-churn/

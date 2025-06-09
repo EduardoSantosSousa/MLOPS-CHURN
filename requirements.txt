@@ -11,3 +11,5 @@ mlflow
 xgboost
 joblib
 dvc
+dvc-gs
+flask
