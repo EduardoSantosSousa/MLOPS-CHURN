@@ -43,8 +43,8 @@ class DataProcessor:
                                                     random_state=self.random_state,
                                                     stratify=y)
 
-            train_data.to_csv(RAW_DATA_TRAIN)
-            test_data.to_csv(RAW_DATA_TEST)
+            train_data.to_csv(RAW_DATA_TRAIN, index=None)
+            test_data.to_csv(RAW_DATA_TEST, index=None)
 
             logger.info(f"Train data saved to {RAW_DATA_TRAIN}")
             logger.info(f"Test data saved to {RAW_DATA_TEST}")
@@ -54,7 +54,7 @@ class DataProcessor:
             raise CustomException("Failed to split data into training and test sets ", e)    
 
 
-    def process_data(self, dataframe, dataset_name="unknown"):
+    def process_data(self, dataframe, dataset_name="unknown", encoders=None, save_encoder=False):
         try:
             logger.info(f"Starting Data Processing Step for [{dataset_name}] dataset...")
 
@@ -105,14 +105,21 @@ class DataProcessor:
 
             logger.info("Applying Label Encoding")
 
-            label_encoders = {}
+            label_encoders = encoders or {}
             for col in dataframe.select_dtypes(include='object').columns:
-                le = LabelEncoder()
-                dataframe[col] = le.fit_transform(dataframe[col])
-                label_encoders[col] = le
+                if col in label_encoders:
+                    le = label_encoders[col]
+                    dataframe[col] = le.transform(dataframe[col])
+                    if col != self.target:
+                        label_encoders[col] = le
+                else:
+                    le = LabelEncoder()
+                    dataframe[col] = le.fit_transform(dataframe[col])
+                    label_encoders[col] = le
 
-            joblib.dump(label_encoders, ENCODER_PATH)
-            logger.info(f"Label encoders saved successfully at {ENCODER_PATH}")    
+            if save_encoder:
+                joblib.dump(label_encoders, ENCODER_PATH)
+                logger.info(f"Label encoders saved successfully at {ENCODER_PATH}")
 
             return dataframe, label_encoders
 
@@ -147,7 +154,7 @@ class DataProcessor:
         try:
             logger.info(f"Saving processed [{dataset_name}] data to {file_path}...") 
 
-            df.to_csv(file_path, index=False)
+            df.to_csv(file_path, index=None)
 
             logger.info(f"Data saved sucessfuly to {file_path}")      
 
@@ -163,11 +170,18 @@ class DataProcessor:
             train_df = load_data(self.train_path)
             test_df = load_data(self.test_path) 
 
-            train_df, _ = self.process_data(train_df, dataset_name="train")   
-            test_df, _ = self.process_data(test_df, dataset_name="test")
+            train_df, label_encoders = self.process_data(train_df, dataset_name="train", save_encoder=True)
+            test_df, _ = self.process_data(test_df, dataset_name="test", encoders=label_encoders, save_encoder=False)
+
 
             train_df = self.balance_data(train_df, dataset_name="train")
             test_df = self.balance_data(test_df, dataset_name="test")
+
+            feature_columns = [col for col in train_df.columns if col != self.target]
+            
+            # Salva como .pkl
+            joblib.dump(feature_columns, FEATURES_PATH)
+            logger.info(f"Feature columns saved to {FEATURES_PATH}")
 
             self.save_data(train_df, PROCESSED_TRAIN_DATA_PATH, dataset_name="train")
             self.save_data(test_df, PROCESSED_TEST_DATA_PATH, dataset_name="test")

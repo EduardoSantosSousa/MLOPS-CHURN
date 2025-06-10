@@ -32,3 +32,4 @@ ENCODER_PATH = os.path.join(ENCODER_DIR, 'label_encoders.pkl')
 # ------------------------------------------------------
 MODEL_DIR = os.path.join(PROJECT_ROOT, 'artifacts', 'model')
 MODEL_PATH = os.path.join(MODEL_DIR, 'best_random_forest.pkl')
+FEATURES_PATH = os.path.join(MODEL_DIR, 'feature_columns.pkl')

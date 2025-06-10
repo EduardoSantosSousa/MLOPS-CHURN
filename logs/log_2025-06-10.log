@@ -1,0 +1,107 @@
+2025-06-10 00:19:33,751 - INFO - Succesfully read the YAML file
+2025-06-10 00:19:33,751 - INFO - === STEP 1: Data Ingestion ===
+2025-06-10 00:19:33,752 - INFO - Data Ingestion Pipeline Started....
+2025-06-10 00:19:35,799 - INFO - Database connection established........
+2025-06-10 00:19:35,959 - INFO - Data Exctracted from DB...
+2025-06-10 00:19:35,985 - INFO - Data Saving Done.....
+2025-06-10 00:19:35,985 - INFO - End of Data Ingestion Pipeline....
+2025-06-10 00:19:35,985 - INFO - === STEP 2: Data Processing ===
+2025-06-10 00:19:35,985 - INFO - Succesfully read the YAML file
+2025-06-10 00:19:35,985 - INFO - Starting the splitting process.....
+2025-06-10 00:19:36,053 - INFO - Train data saved to d:\mlops\mlops_project_telco_custumer_church\artifacts\data\train.csv
+2025-06-10 00:19:36,053 - INFO - Test data saved to d:\mlops\mlops_project_telco_custumer_church\artifacts\data\test.csv
+2025-06-10 00:19:36,053 - INFO - Loading data from RAW directory
+2025-06-10 00:19:36,053 - INFO - Loading data
+2025-06-10 00:19:36,063 - INFO - Loading data
+2025-06-10 00:19:36,067 - INFO - Starting Data Processing Step for [train] dataset...
+2025-06-10 00:19:36,073 - INFO - Start Feature Engineering for [train] dataset...
+2025-06-10 00:19:36,188 - INFO - Applying Label Encoding
+2025-06-10 00:19:36,197 - INFO - Label encoders saved successfully at d:\mlops\mlops_project_telco_custumer_church\artifacts\encoders\label_encoders.pkl
+2025-06-10 00:19:36,197 - INFO - Starting Data Processing Step for [test] dataset...
+2025-06-10 00:19:36,201 - INFO - Start Feature Engineering for [test] dataset...
+2025-06-10 00:19:36,231 - INFO - Applying Label Encoding
+2025-06-10 00:19:36,235 - INFO - Handling Imbalanced Data for [train] dataset...
+2025-06-10 00:19:37,662 - INFO - Data balanced sucesffuly
+2025-06-10 00:19:37,662 - INFO - Handling Imbalanced Data for [test] dataset...
+2025-06-10 00:19:37,669 - INFO - Data balanced sucesffuly
+2025-06-10 00:19:37,669 - INFO - Saving processed [train] data to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_train.csv...
+2025-06-10 00:19:37,691 - INFO - Data saved sucessfuly to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_train.csv
+2025-06-10 00:19:37,691 - INFO - Saving processed [test] data to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_test.csv...
+2025-06-10 00:19:37,707 - INFO - Data saved sucessfuly to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_test.csv
+2025-06-10 00:19:37,707 - INFO - Data processing completed successfully
+2025-06-10 00:19:37,707 - INFO - === STEP 3: Model Training ===
+2025-06-10 00:19:37,707 - INFO - Succesfully read the YAML file
+2025-06-10 00:19:37,707 - INFO - Loading processed training and test datasets
+2025-06-10 00:19:37,719 - INFO - Starting model training with GridSearch and MLflow
+2025-06-10 00:22:19,641 - INFO - Model successfully saved to: d:\mlops\mlops_project_telco_custumer_church\artifacts\model\best_random_forest.pkl
+2025-06-10 00:22:19,641 - INFO - Best parameters: {'max_depth': 10, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 100}
+2025-06-10 00:22:19,655 - INFO - 
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.82      0.81      0.82      1035
+           1       0.81      0.83      0.82      1035
+
+    accuracy                           0.82      2070
+   macro avg       0.82      0.82      0.82      2070
+weighted avg       0.82      0.82      0.82      2070
+
+2025-06-10 00:22:19,655 - INFO - Confusion Matrix:
+[[834 201]
+ [177 858]]
+2025-06-10 00:22:19,655 - INFO - Model Training Done....
+2025-06-10 00:22:19,689 - INFO - === PIPELINE COMPLETED SUCCESSFULLY ===
+2025-06-10 00:49:15,715 - INFO - Succesfully read the YAML file
+2025-06-10 00:49:15,715 - INFO - === STEP 1: Data Ingestion ===
+2025-06-10 00:49:15,715 - INFO - Data Ingestion Pipeline Started....
+2025-06-10 00:49:17,768 - INFO - Database connection established........
+2025-06-10 00:49:17,924 - INFO - Data Exctracted from DB...
+2025-06-10 00:49:17,950 - INFO - Data Saving Done.....
+2025-06-10 00:49:17,950 - INFO - End of Data Ingestion Pipeline....
+2025-06-10 00:49:17,952 - INFO - === STEP 2: Data Processing ===
+2025-06-10 00:49:17,953 - INFO - Succesfully read the YAML file
+2025-06-10 00:49:17,953 - INFO - Starting the splitting process.....
+2025-06-10 00:49:17,993 - INFO - Train data saved to d:\mlops\mlops_project_telco_custumer_church\artifacts\data\train.csv
+2025-06-10 00:49:17,993 - INFO - Test data saved to d:\mlops\mlops_project_telco_custumer_church\artifacts\data\test.csv
+2025-06-10 00:49:17,993 - INFO - Loading data from RAW directory
+2025-06-10 00:49:17,993 - INFO - Loading data
+2025-06-10 00:49:18,008 - INFO - Loading data
+2025-06-10 00:49:18,014 - INFO - Starting Data Processing Step for [train] dataset...
+2025-06-10 00:49:18,019 - INFO - Start Feature Engineering for [train] dataset...
+2025-06-10 00:49:18,121 - INFO - Applying Label Encoding
+2025-06-10 00:49:18,137 - INFO - Label encoders saved successfully at d:\mlops\mlops_project_telco_custumer_church\artifacts\encoders\label_encoders.pkl
+2025-06-10 00:49:18,137 - INFO - Starting Data Processing Step for [test] dataset...
+2025-06-10 00:49:18,146 - INFO - Start Feature Engineering for [test] dataset...
+2025-06-10 00:49:18,177 - INFO - Applying Label Encoding
+2025-06-10 00:49:18,181 - INFO - Handling Imbalanced Data for [train] dataset...
+2025-06-10 00:49:19,573 - INFO - Data balanced sucesffuly
+2025-06-10 00:49:19,573 - INFO - Handling Imbalanced Data for [test] dataset...
+2025-06-10 00:49:19,575 - INFO - Data balanced sucesffuly
+2025-06-10 00:49:19,626 - INFO - Feature columns saved to d:\mlops\mlops_project_telco_custumer_church\artifacts\model\feature_columns.pkl
+2025-06-10 00:49:19,626 - INFO - Saving processed [train] data to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_train.csv...
+2025-06-10 00:49:19,654 - INFO - Data saved sucessfuly to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_train.csv
+2025-06-10 00:49:19,654 - INFO - Saving processed [test] data to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_test.csv...
+2025-06-10 00:49:19,663 - INFO - Data saved sucessfuly to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_test.csv
+2025-06-10 00:49:19,663 - INFO - Data processing completed successfully
+2025-06-10 00:49:19,663 - INFO - === STEP 3: Model Training ===
+2025-06-10 00:49:19,665 - INFO - Succesfully read the YAML file
+2025-06-10 00:49:19,665 - INFO - Loading processed training and test datasets
+2025-06-10 00:49:19,671 - INFO - Starting model training with GridSearch and MLflow
+2025-06-10 00:53:54,658 - INFO - Model successfully saved to: d:\mlops\mlops_project_telco_custumer_church\artifacts\model\best_random_forest.pkl
+2025-06-10 00:53:54,658 - INFO - Best parameters: {'max_depth': 10, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 100}
+2025-06-10 00:53:54,663 - INFO - 
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.82      0.81      0.82      1035
+           1       0.81      0.83      0.82      1035
+
+    accuracy                           0.82      2070
+   macro avg       0.82      0.82      0.82      2070
+weighted avg       0.82      0.82      0.82      2070
+
+2025-06-10 00:53:54,664 - INFO - Confusion Matrix:
+[[834 201]
+ [177 858]]
+2025-06-10 00:53:54,664 - INFO - Model Training Done....
+2025-06-10 00:53:54,767 - INFO - === PIPELINE COMPLETED SUCCESSFULLY ===

@@ -27,13 +27,18 @@
 <body>
 
 <header>
-  <h1>TeleConecta</h1>
-  <nav>
-    <a href="/">Início</a>
-    <a href="#planos">Planos</a>
-    <a href="/login">Área Restrita</a>
-  </nav>
+  <div class="header-container">
+    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo TeleConecta" class="logo">
+    <nav>
+      <ul>
+        <li><a href="#inicio">Início</a></li>
+        <li><a href="#planos">Planos</a></li>
+        <li><a href="#restrita">Área Restrita</a></li>
+      </ul>
+    </nav>
+  </div>
 </header>
+
 
 <section class="hero">
   <h1>Conectando você ao futuro</h1>

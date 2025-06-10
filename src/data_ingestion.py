@@ -47,7 +47,7 @@ class DataIngestion:
 
     def save_date(self, df):
         try:
-            df.to_csv(RAW_DATA, index = False)
+            df.to_csv(RAW_DATA, index = None)
 
             logger.info("Data Saving Done.....")
 

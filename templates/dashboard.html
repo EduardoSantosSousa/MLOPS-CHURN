@@ -3,31 +3,198 @@
 <head>
   <meta charset="UTF-8">
   <title>Dashboard - Previsão de Cancelamento</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style_dash.css') }}">
 </head>
 <body>
 
-<section class="login-area">
+<section class="dashboard-container">
   <h2>Previsão de Churn</h2>
-  <form method="POST" action="/dashboard">
-    <label>ID do Cliente:</label><br>
-    <input type="text" name="client_id" required><br>
 
-    <label>Meses de Contrato:</label><br>
-    <input type="number" name="months" required><br>
+  <form method="POST" action="/dashboard" class="dashboard-form">
+    <div class="form-column">
+      <div class="form-group">
+        <label>Senior Citizen:</label>
+        <select name="SeniorCitizen" required>
+          <option value="0">Não</option>
+          <option value="1">Sim</option>
+        </select>
+      </div>
 
-    <label>Valor da Fatura:</label><br>
-    <input type="number" name="bill" required><br>
+      <div class="form-group">
+        <label>Partner:</label>
+        <select name="Partner" required>
+          <option value="No">Não</option>
+          <option value="Yes">Sim</option>
+        </select>
+      </div>
 
-    <button type="submit">Prever</button>
+      <div class="form-group">
+        <label>Dependents:</label>
+        <select name="Dependents" required>
+          <option value="No">Não</option>
+          <option value="Yes">Sim</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>tenure (meses):</label>
+        <input type="number" name="tenure" required>
+      </div>
+
+      <div class="form-group">
+        <label>Phone Service:</label>
+        <select name="PhoneService" required>
+          <option value="No">Não</option>
+          <option value="Yes">Sim</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Multiple Lines:</label>
+        <select name="MultipleLines" required>
+          <option value="No">Não</option>
+          <option value="Yes">Sim</option>
+          <option value="No internet service">Sem serviço de telefone</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Internet Service:</label>
+        <select name="InternetService" required>
+          <option value="DSL">DSL</option>
+          <option value="Fiber Optic">Fiber Optic</option>
+          <option value="No">Sem internet</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Online Security:</label>
+        <select name="OnlineSecurity" required>
+          <option value="Yes">Sim</option>
+          <option value="No">Não</option>
+          <option value="No internet service">Sem serviço de internet</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Online Backup:</label>
+        <select name="OnlineBackup" required>
+          <option value="Yes">Sim</option>
+          <option value="No">Não</option>
+          <option value="No internet service">Sem serviço de internet</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-column">
+      <div class="form-group">
+        <label>Device Protection:</label>
+        <select name="DeviceProtection" required>
+          <option value="Yes">Sim</option>
+          <option value="No">Não</option>
+          <option value="No internet service">Sem serviço de internet</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Tech Support:</label>
+        <select name="TechSupport" required>
+          <option value="Yes">Sim</option>
+          <option value="No">Não</option>
+          <option value="No internet service">Sem serviço de internet</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Streaming TV:</label>
+        <select name="StreamingTV" required>
+          <option value="Yes">Sim</option>
+          <option value="No">Não</option>
+          <option value="No internet service">Sem serviço de internet</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Streaming Movies:</label>
+        <select name="StreamingMovies" required>
+          <option value="Yes">Sim</option>
+          <option value="No">Não</option>
+          <option value="No internet service">Sem serviço de internet</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Contract:</label>
+        <select name="Contract" required>
+          <option value="Month-to-month">Mensal</option>
+          <option value="One year">1 ano</option>
+          <option value="Two year">2 anos</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Paperless Billing:</label>
+        <select name="PaperlessBilling" required>
+          <option value="No">Não</option>
+          <option value="Yes">Sim</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Payment Method:</label>
+        <select name="PaymentMethod" required>
+          <option value="Bank transfer (automatic)">Bank transfer</option>
+          <option value="Credit card (automatic)">Credit card</option>
+          <option value="Electronic check">Electronic check</option>
+          <option value="Mailed check">Mailed check</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Monthly Charges:</label>
+        <input type="number" name="MonthlyCharges" step="0.01" required>
+      </div>
+
+      <div class="form-group">
+        <label>Total Charges:</label>
+        <input type="number" name="TotalCharges" step="0.01" required>
+      </div>
+
+      <div class="form-group">
+        <label>Avg. Monthly Spend:</label>
+        <input type="number" name="AvgMonthlySpend" step="0.01" required>
+      </div>
+    </div>
+
+    <div class="form-button">
+      <button type="submit">Prever</button>
+    </div>
+    
+    <!-- Botão de voltar para a tela inicial -->
+<div style="text-align: center; margin-top: 20px;">
+  <a href="/" style="text-decoration: none;">
+    <button type="button" style="background-color: #95a5a6;">Voltar para a tela inicial</button>
+  </a>
+</div>
   </form>
 
   {% if prediction %}
-  <p style="margin-top: 20px;"><strong>Resultado:</strong> {{ prediction }}</p>
+  <p class="result"><strong>Resultado:</strong> {{ prediction }}</p>
+  {% endif %}
+
+  {% if calculated %}
+  <h3>Valores Calculados:</h3>
+  <ul class="calc-list">
+    <li><strong>No Online Services:</strong> {{ calculated['NoOnlineServices'] }}</li>
+    <li><strong>No Streaming:</strong> {{ calculated['NoStreaming'] }}</li>
+    <li><strong>Total Services:</strong> {{ calculated['TotalServices'] }}</li>
+    <li><strong>Risk Score:</strong> {{ calculated['RiskScore'] }}</li>
+  </ul>
   {% endif %}
 </section>
 
 </body>
 </html>
+
 
 
