@@ -1,18 +1,17 @@
-FROM quay.io/astronomer/astro-runtime:12.6.0
+# Dockerfile
+FROM python:3.11-slim
 
-# Instale ferramentas do sistema necessárias para compilar pacotes Python (como pandas)
-USER root
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    gcc \
-    libffi-dev \
-    libpq-dev \
-    python3-dev \
-    curl \
-    && apt-get clean
+WORKDIR /app
 
-# Volte para o usuário airflow (padrão da imagem)
-USER astro
+# Copia o requirements e instala
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Instale as dependências Python
-RUN pip install apache-airflow-providers-google
+# Copia todo o resto da aplicação
+COPY . .
+
+# Expõe a porta do Flask
+EXPOSE 5000
+
+# Inicia sua aplicação
+CMD ["python", "application.py"]

@@ -1,7 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, Response, render_template, request, redirect, url_for
 import os
 import joblib
 import pandas as pd
+import numpy as np
+from alibi_detect.cd import KSDrift
+from config.paths_config import *
+from prometheus_client import Counter, Gauge, generate_latest, CONTENT_TYPE_LATEST
+from utils.logger import get_logger
+
+
+logger = get_logger(__name__)
 
 # Caminhos do modelo e encoder
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -18,6 +26,17 @@ FEATURES_PATH = os.path.join(PROJECT_ROOT, 'artifacts', 'model', 'feature_column
 with open(FEATURES_PATH, 'rb') as f:
     trained_feature_columns = joblib.load(f)
 
+# Carrega dados de referência (treinamento) para comparação de drift
+reference_data = pd.read_csv(PROCESSED_TRAIN_DATA_PATH)
+reference_data = reference_data[trained_feature_columns].astype(float)
+
+# Detector de drift univariado
+ks_drift_detector = KSDrift(reference_data.values, p_val=0.05)
+
+# Métricas
+ks_drift_metric = Gauge('ks_drift_detected_columns', 'Número de colunas com data drift detectado (KS Test)')
+prediction_total_count = Counter('prediction_total_count', 'Total number of predictions made')
+drift_events_total = Counter('drift_events_total', 'Total number of drift events detected')
 
 app = Flask(__name__)
 
@@ -45,6 +64,7 @@ def login():
 def dashboard():
     prediction = None
     calculated_fields = {}
+    drift_detected = False
 
     if request.method == 'POST':
         input_data = {}
@@ -164,12 +184,40 @@ def dashboard():
         # Reordena colunas na mesma ordem do treinamento
         df = df[trained_feature_columns]
 
+        # Converte tudo para float (preparação para o KSDrift)
+        df = df.astype(float)
+        
+        # Verifica data drift
+        drift_result = ks_drift_detector.predict(df.values)
+        is_drift = drift_result['data']['is_drift']
+        arr = np.atleast_1d(is_drift)        # se for int vira array([0]) ou array([1])
+        num_drifted_features = int(arr.sum())
+
+        # Atualiza a métrica Prometheus
+        ks_drift_metric.set(num_drifted_features)
+
+        drift_detected = num_drifted_features > 0
+        
+        if drift_detected:
+            drift_events_total.inc()
+            logger.warning(f'Drift detectado em {num_drifted_features} colunas.')
+            print("Drift Detected.....")
+            logger.info("Drift Detected.....")
+        else:
+            logger.info('Nenhum drift detectado.')
+
         #Predição:
         result = model.predict(df)[0]
+        prediction_total_count.inc()  # Incrementa o contador de predições
         prediction = "🚨 Alta chance de cancelamento" if result == 1 else "✅ Cliente estável"
 
-    return render_template('dashboard.html', prediction=prediction, calculated=calculated_fields)
+    return render_template('dashboard.html', prediction=prediction, calculated=calculated_fields, drift_detected=drift_detected)
+
+@app.route('/metrics')
+def metrics():
+    return Response(generate_latest(), mimetype=CONTENT_TYPE_LATEST)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    #app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
 

@@ -13,3 +13,5 @@ joblib
 dvc
 dvc-gs
 flask
+alibi-detect
+prometheus_client

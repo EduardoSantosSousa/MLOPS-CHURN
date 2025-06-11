@@ -1,107 +1,93 @@
-2025-06-10 00:19:33,751 - INFO - Succesfully read the YAML file
-2025-06-10 00:19:33,751 - INFO - === STEP 1: Data Ingestion ===
-2025-06-10 00:19:33,752 - INFO - Data Ingestion Pipeline Started....
-2025-06-10 00:19:35,799 - INFO - Database connection established........
-2025-06-10 00:19:35,959 - INFO - Data Exctracted from DB...
-2025-06-10 00:19:35,985 - INFO - Data Saving Done.....
-2025-06-10 00:19:35,985 - INFO - End of Data Ingestion Pipeline....
-2025-06-10 00:19:35,985 - INFO - === STEP 2: Data Processing ===
-2025-06-10 00:19:35,985 - INFO - Succesfully read the YAML file
-2025-06-10 00:19:35,985 - INFO - Starting the splitting process.....
-2025-06-10 00:19:36,053 - INFO - Train data saved to d:\mlops\mlops_project_telco_custumer_church\artifacts\data\train.csv
-2025-06-10 00:19:36,053 - INFO - Test data saved to d:\mlops\mlops_project_telco_custumer_church\artifacts\data\test.csv
-2025-06-10 00:19:36,053 - INFO - Loading data from RAW directory
-2025-06-10 00:19:36,053 - INFO - Loading data
-2025-06-10 00:19:36,063 - INFO - Loading data
-2025-06-10 00:19:36,067 - INFO - Starting Data Processing Step for [train] dataset...
-2025-06-10 00:19:36,073 - INFO - Start Feature Engineering for [train] dataset...
-2025-06-10 00:19:36,188 - INFO - Applying Label Encoding
-2025-06-10 00:19:36,197 - INFO - Label encoders saved successfully at d:\mlops\mlops_project_telco_custumer_church\artifacts\encoders\label_encoders.pkl
-2025-06-10 00:19:36,197 - INFO - Starting Data Processing Step for [test] dataset...
-2025-06-10 00:19:36,201 - INFO - Start Feature Engineering for [test] dataset...
-2025-06-10 00:19:36,231 - INFO - Applying Label Encoding
-2025-06-10 00:19:36,235 - INFO - Handling Imbalanced Data for [train] dataset...
-2025-06-10 00:19:37,662 - INFO - Data balanced sucesffuly
-2025-06-10 00:19:37,662 - INFO - Handling Imbalanced Data for [test] dataset...
-2025-06-10 00:19:37,669 - INFO - Data balanced sucesffuly
-2025-06-10 00:19:37,669 - INFO - Saving processed [train] data to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_train.csv...
-2025-06-10 00:19:37,691 - INFO - Data saved sucessfuly to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_train.csv
-2025-06-10 00:19:37,691 - INFO - Saving processed [test] data to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_test.csv...
-2025-06-10 00:19:37,707 - INFO - Data saved sucessfuly to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_test.csv
-2025-06-10 00:19:37,707 - INFO - Data processing completed successfully
-2025-06-10 00:19:37,707 - INFO - === STEP 3: Model Training ===
-2025-06-10 00:19:37,707 - INFO - Succesfully read the YAML file
-2025-06-10 00:19:37,707 - INFO - Loading processed training and test datasets
-2025-06-10 00:19:37,719 - INFO - Starting model training with GridSearch and MLflow
-2025-06-10 00:22:19,641 - INFO - Model successfully saved to: d:\mlops\mlops_project_telco_custumer_church\artifacts\model\best_random_forest.pkl
-2025-06-10 00:22:19,641 - INFO - Best parameters: {'max_depth': 10, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 100}
-2025-06-10 00:22:19,655 - INFO - 
-Classification Report:
-              precision    recall  f1-score   support
-
-           0       0.82      0.81      0.82      1035
-           1       0.81      0.83      0.82      1035
-
-    accuracy                           0.82      2070
-   macro avg       0.82      0.82      0.82      2070
-weighted avg       0.82      0.82      0.82      2070
-
-2025-06-10 00:22:19,655 - INFO - Confusion Matrix:
-[[834 201]
- [177 858]]
-2025-06-10 00:22:19,655 - INFO - Model Training Done....
-2025-06-10 00:22:19,689 - INFO - === PIPELINE COMPLETED SUCCESSFULLY ===
-2025-06-10 00:49:15,715 - INFO - Succesfully read the YAML file
-2025-06-10 00:49:15,715 - INFO - === STEP 1: Data Ingestion ===
-2025-06-10 00:49:15,715 - INFO - Data Ingestion Pipeline Started....
-2025-06-10 00:49:17,768 - INFO - Database connection established........
-2025-06-10 00:49:17,924 - INFO - Data Exctracted from DB...
-2025-06-10 00:49:17,950 - INFO - Data Saving Done.....
-2025-06-10 00:49:17,950 - INFO - End of Data Ingestion Pipeline....
-2025-06-10 00:49:17,952 - INFO - === STEP 2: Data Processing ===
-2025-06-10 00:49:17,953 - INFO - Succesfully read the YAML file
-2025-06-10 00:49:17,953 - INFO - Starting the splitting process.....
-2025-06-10 00:49:17,993 - INFO - Train data saved to d:\mlops\mlops_project_telco_custumer_church\artifacts\data\train.csv
-2025-06-10 00:49:17,993 - INFO - Test data saved to d:\mlops\mlops_project_telco_custumer_church\artifacts\data\test.csv
-2025-06-10 00:49:17,993 - INFO - Loading data from RAW directory
-2025-06-10 00:49:17,993 - INFO - Loading data
-2025-06-10 00:49:18,008 - INFO - Loading data
-2025-06-10 00:49:18,014 - INFO - Starting Data Processing Step for [train] dataset...
-2025-06-10 00:49:18,019 - INFO - Start Feature Engineering for [train] dataset...
-2025-06-10 00:49:18,121 - INFO - Applying Label Encoding
-2025-06-10 00:49:18,137 - INFO - Label encoders saved successfully at d:\mlops\mlops_project_telco_custumer_church\artifacts\encoders\label_encoders.pkl
-2025-06-10 00:49:18,137 - INFO - Starting Data Processing Step for [test] dataset...
-2025-06-10 00:49:18,146 - INFO - Start Feature Engineering for [test] dataset...
-2025-06-10 00:49:18,177 - INFO - Applying Label Encoding
-2025-06-10 00:49:18,181 - INFO - Handling Imbalanced Data for [train] dataset...
-2025-06-10 00:49:19,573 - INFO - Data balanced sucesffuly
-2025-06-10 00:49:19,573 - INFO - Handling Imbalanced Data for [test] dataset...
-2025-06-10 00:49:19,575 - INFO - Data balanced sucesffuly
-2025-06-10 00:49:19,626 - INFO - Feature columns saved to d:\mlops\mlops_project_telco_custumer_church\artifacts\model\feature_columns.pkl
-2025-06-10 00:49:19,626 - INFO - Saving processed [train] data to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_train.csv...
-2025-06-10 00:49:19,654 - INFO - Data saved sucessfuly to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_train.csv
-2025-06-10 00:49:19,654 - INFO - Saving processed [test] data to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_test.csv...
-2025-06-10 00:49:19,663 - INFO - Data saved sucessfuly to d:\mlops\mlops_project_telco_custumer_church\artifacts\processed\processed_test.csv
-2025-06-10 00:49:19,663 - INFO - Data processing completed successfully
-2025-06-10 00:49:19,663 - INFO - === STEP 3: Model Training ===
-2025-06-10 00:49:19,665 - INFO - Succesfully read the YAML file
-2025-06-10 00:49:19,665 - INFO - Loading processed training and test datasets
-2025-06-10 00:49:19,671 - INFO - Starting model training with GridSearch and MLflow
-2025-06-10 00:53:54,658 - INFO - Model successfully saved to: d:\mlops\mlops_project_telco_custumer_church\artifacts\model\best_random_forest.pkl
-2025-06-10 00:53:54,658 - INFO - Best parameters: {'max_depth': 10, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 100}
-2025-06-10 00:53:54,663 - INFO - 
-Classification Report:
-              precision    recall  f1-score   support
-
-           0       0.82      0.81      0.82      1035
-           1       0.81      0.83      0.82      1035
-
-    accuracy                           0.82      2070
-   macro avg       0.82      0.82      0.82      2070
-weighted avg       0.82      0.82      0.82      2070
-
-2025-06-10 00:53:54,664 - INFO - Confusion Matrix:
-[[834 201]
- [177 858]]
-2025-06-10 00:53:54,664 - INFO - Model Training Done....
-2025-06-10 00:53:54,767 - INFO - === PIPELINE COMPLETED SUCCESSFULLY ===
+2025-06-10 23:14:47,920 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.15.100:5000
+2025-06-10 23:14:47,920 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 23:14:47,924 - INFO -  * Restarting with stat
+2025-06-10 23:14:52,452 - WARNING -  * Debugger is active!
+2025-06-10 23:14:52,453 - INFO -  * Debugger PIN: 110-521-200
+2025-06-10 23:21:10,818 - INFO -  * Detected change in 'd:\\mlops\\mlops_project_telco_custumer_church\\application.py', reloading
+2025-06-10 23:21:11,081 - INFO -  * Restarting with stat
+2025-06-10 23:21:44,657 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.15.100:5000
+2025-06-10 23:21:44,657 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 23:21:44,660 - INFO -  * Restarting with stat
+2025-06-10 23:21:49,272 - WARNING -  * Debugger is active!
+2025-06-10 23:21:49,272 - INFO -  * Debugger PIN: 110-521-200
+2025-06-10 23:30:53,232 - INFO -  * Detected change in 'd:\\mlops\\mlops_project_telco_custumer_church\\application.py', reloading
+2025-06-10 23:30:53,439 - INFO -  * Restarting with stat
+2025-06-10 23:33:04,469 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.15.100:5000
+2025-06-10 23:33:04,469 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 23:33:04,469 - INFO -  * Restarting with stat
+2025-06-10 23:33:09,407 - WARNING -  * Debugger is active!
+2025-06-10 23:33:09,407 - INFO -  * Debugger PIN: 110-521-200
+2025-06-10 23:38:03,181 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.15.100:5000
+2025-06-10 23:38:03,182 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 23:38:03,186 - INFO -  * Restarting with stat
+2025-06-10 23:38:07,882 - WARNING -  * Debugger is active!
+2025-06-10 23:38:07,882 - INFO -  * Debugger PIN: 110-521-200
+2025-06-10 23:44:30,134 - INFO -  * Detected change in 'd:\\mlops\\mlops_project_telco_custumer_church\\application.py', reloading
+2025-06-10 23:44:30,334 - INFO -  * Restarting with stat
+2025-06-10 23:45:15,535 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.15.100:5000
+2025-06-10 23:45:15,535 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 23:45:15,535 - INFO -  * Restarting with stat
+2025-06-10 23:45:20,045 - WARNING -  * Debugger is active!
+2025-06-10 23:45:20,057 - INFO -  * Debugger PIN: 110-521-200
+2025-06-10 23:59:14,080 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.15.100:5000
+2025-06-10 23:59:14,080 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-10 23:59:14,082 - INFO -  * Restarting with stat
+2025-06-10 23:59:18,633 - WARNING -  * Debugger is active!
+2025-06-10 23:59:18,633 - INFO -  * Debugger PIN: 110-521-200
+2025-06-10 23:59:25,427 - INFO - 127.0.0.1 - - [10/Jun/2025 23:59:25] "GET /metrics HTTP/1.1" 200 -
+2025-06-10 23:59:46,298 - INFO - 127.0.0.1 - - [10/Jun/2025 23:59:46] "GET /metrics HTTP/1.1" 200 -
+2025-06-10 23:59:51,626 - INFO - 127.0.0.1 - - [10/Jun/2025 23:59:51] "GET / HTTP/1.1" 200 -
+2025-06-10 23:59:51,698 - INFO - 127.0.0.1 - - [10/Jun/2025 23:59:51] "GET /static/style.css HTTP/1.1" 200 -
+2025-06-10 23:59:51,881 - INFO - 127.0.0.1 - - [10/Jun/2025 23:59:51] "GET /static/img/logo.png HTTP/1.1" 200 -
+2025-06-10 23:59:51,959 - INFO - 127.0.0.1 - - [10/Jun/2025 23:59:51] "GET /static/img/banner1.png HTTP/1.1" 200 -
+2025-06-10 23:59:52,010 - INFO - 127.0.0.1 - - [10/Jun/2025 23:59:52] "GET /static/img/banner2.png HTTP/1.1" 200 -
+2025-06-10 23:59:52,010 - INFO - 127.0.0.1 - - [10/Jun/2025 23:59:52] "GET /static/img/banner3.png HTTP/1.1" 200 -
+2025-06-11 00:00:09,345 - INFO - 127.0.0.1 - - [11/Jun/2025 00:00:09] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-06-11 00:00:09,351 - INFO - 127.0.0.1 - - [11/Jun/2025 00:00:09] "GET /dashboard HTTP/1.1" 200 -
+2025-06-11 00:00:09,595 - INFO - 127.0.0.1 - - [11/Jun/2025 00:00:09] "GET /static/style_dash.css HTTP/1.1" 200 -
+2025-06-11 00:00:24,004 - WARNING - Drift detectado em 1 colunas.
+2025-06-11 00:00:24,004 - INFO - Drift Detected.....
+2025-06-11 00:00:24,011 - INFO - 127.0.0.1 - - [11/Jun/2025 00:00:24] "POST /dashboard HTTP/1.1" 200 -
+2025-06-11 00:00:24,023 - INFO - 127.0.0.1 - - [11/Jun/2025 00:00:24] "[36mGET /static/style_dash.css HTTP/1.1[0m" 304 -
+2025-06-11 00:00:30,926 - INFO - 127.0.0.1 - - [11/Jun/2025 00:00:30] "GET /metrics HTTP/1.1" 200 -
+2025-06-11 00:00:52,774 - WARNING - Drift detectado em 1 colunas.
+2025-06-11 00:00:52,774 - INFO - Drift Detected.....
+2025-06-11 00:00:52,780 - INFO - 127.0.0.1 - - [11/Jun/2025 00:00:52] "POST /dashboard HTTP/1.1" 200 -
+2025-06-11 00:00:52,792 - INFO - 127.0.0.1 - - [11/Jun/2025 00:00:52] "[36mGET /static/style_dash.css HTTP/1.1[0m" 304 -
+2025-06-11 00:00:58,457 - INFO - 127.0.0.1 - - [11/Jun/2025 00:00:58] "GET /metrics HTTP/1.1" 200 -
+2025-06-11 00:01:27,356 - WARNING - Drift detectado em 1 colunas.
+2025-06-11 00:01:27,356 - INFO - Drift Detected.....
+2025-06-11 00:01:27,359 - INFO - 127.0.0.1 - - [11/Jun/2025 00:01:27] "POST /dashboard HTTP/1.1" 200 -
+2025-06-11 00:01:27,380 - INFO - 127.0.0.1 - - [11/Jun/2025 00:01:27] "[36mGET /static/style_dash.css HTTP/1.1[0m" 304 -
+2025-06-11 00:01:32,475 - INFO - 127.0.0.1 - - [11/Jun/2025 00:01:32] "GET /metrics HTTP/1.1" 200 -
+2025-06-11 01:16:45,056 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:45] "GET / HTTP/1.1" 200 -
+2025-06-11 01:16:45,190 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-06-11 01:16:45,309 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:45] "[36mGET /static/img/logo.png HTTP/1.1[0m" 304 -
+2025-06-11 01:16:45,374 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:45] "[36mGET /static/img/banner1.png HTTP/1.1[0m" 304 -
+2025-06-11 01:16:45,377 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:45] "[36mGET /static/img/banner2.png HTTP/1.1[0m" 304 -
+2025-06-11 01:16:45,506 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:45] "[36mGET /static/img/banner3.png HTTP/1.1[0m" 304 -
+2025-06-11 01:16:48,130 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:48] "GET /metrics HTTP/1.1" 200 -
+2025-06-11 01:16:53,006 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:53] "GET / HTTP/1.1" 200 -
+2025-06-11 01:16:53,253 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:53] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-06-11 01:16:53,325 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:53] "[36mGET /static/img/logo.png HTTP/1.1[0m" 304 -
+2025-06-11 01:16:53,326 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:53] "[36mGET /static/img/banner1.png HTTP/1.1[0m" 304 -
+2025-06-11 01:16:53,326 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:53] "[36mGET /static/img/banner2.png HTTP/1.1[0m" 304 -
+2025-06-11 01:16:53,570 - INFO - 127.0.0.1 - - [11/Jun/2025 01:16:53] "[36mGET /static/img/banner3.png HTTP/1.1[0m" 304 -

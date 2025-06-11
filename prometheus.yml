@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'Telco_Customer_Churn_app'
+    metrics_path: /metrics
+    static_configs:
+      - targets: ['churn-app:5000']
