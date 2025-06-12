@@ -65,7 +65,7 @@ pipeline {
                        gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                        gcloud config set project ${GCP_PROJECT}
                        gcloud auth configure-docker  --quiet
-                       docker build -t grc.io/${GCP_PROJECT}/ml-telco-churn:latest .
+                       docker build -t gcr.io/${GCP_PROJECT}/ml-telco-churn:latest .
                        docker push gcr.io/${GCP_PROJECT}/ml-telco-churn:latest
                         '''
                     }

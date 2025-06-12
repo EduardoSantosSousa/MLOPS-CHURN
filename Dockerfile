@@ -14,6 +14,7 @@ COPY . .
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+
 # Expõe a porta do Flask
 EXPOSE 5000
 
