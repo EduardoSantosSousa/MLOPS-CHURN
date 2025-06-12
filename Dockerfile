@@ -14,9 +14,6 @@ COPY . .
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Train the model before running the application
-RUN python -m pipeline.training_pipeline
-
 # Expõe a porta do Flask
 EXPOSE 5000
 
