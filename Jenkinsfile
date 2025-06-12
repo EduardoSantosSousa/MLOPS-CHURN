@@ -6,6 +6,9 @@ pipeline {
         GCP_PROJECT = 'serious-cat-455501-d2'
         GCLOUD_PATH = "/var/jenkins_home/google-cloud-sdk/bin"
         KUBECTL_AUTH_PLUGIN = "usr/lib/google-cloud-sdk/bin"
+        HTTP_PROXY  = 'http://192.168.65.1:3128'
+        HTTPS_PROXY = 'http://192.168.65.1:3128'
+        NO_PROXY    = 'localhost,127.0.0.1,.gcr.io'
 
     }
 
@@ -62,9 +65,14 @@ pipeline {
                         echo 'Build and Push Image to GCR............'
                         sh '''
                        export PATH=$PATH:${GCLOUD_PATH}
+                       export HTTP_PROXY=${HTTP_PROXY}
+                       export HTTPS_PROXY=${HTTPS_PROXY}
+                       export NO_PROXY=${NO_PROXY}
+
                        gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                        gcloud config set project ${GCP_PROJECT}
                        gcloud auth configure-docker  --quiet
+                       
                        docker build -t gcr.io/${GCP_PROJECT}/ml-telco-churn:latest .
                        docker push gcr.io/${GCP_PROJECT}/ml-telco-churn:latest
                         '''
