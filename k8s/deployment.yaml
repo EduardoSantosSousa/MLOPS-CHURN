@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: churn-app
-        image: gcr.io/${GCP_PROJECT}/ml-telco-churn:latest
+        image: gcr.io/serious-cat-455501-d2/ml-telco-churn:latest
         ports:
         - containerPort: 5000
