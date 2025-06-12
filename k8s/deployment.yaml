@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: churn-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: churn-app
+  template:
+    metadata:
+      labels:
+        app: churn-app
+    spec:
+      containers:
+      - name: churn-app
+        image: gcr.io/${GCP_PROJECT}/ml-telco-churn:latest
+        ports:
+        - containerPort: 5000
