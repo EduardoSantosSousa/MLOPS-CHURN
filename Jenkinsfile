@@ -49,9 +49,17 @@ pipeline {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     script {
                         echo 'DVC Pull........'
-                        sh '''
-                        . ${VENV_DIR}/bin/activate
-                        dvc pull
+                         sh '''
+                            # exporta o proxy para que o DVC consiga falar com o Google Storage
+                            export HTTP_PROXY=${HTTP_PROXY}
+                            export HTTPS_PROXY=${HTTPS_PROXY}
+                            export NO_PROXY=${NO_PROXY}
+
+                            # ativa o virtualenv
+                            . ${VENV_DIR}/bin/activate
+
+                            # finalmente puxa os dados
+                            dvc pull
                         '''
                     }
                 }
