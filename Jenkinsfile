@@ -6,6 +6,9 @@ pipeline {
         GCP_PROJECT = 'serious-cat-455501-d2'
         GCLOUD_PATH = "/var/jenkins_home/google-cloud-sdk/bin"
         KUBECTL_AUTH_PLUGIN = "usr/lib/google-cloud-sdk/bin"
+        DOCKER_CLI_EXPERIMENTAL = 'enabled'
+        DOCKER_BUILDKIT = '1'
+        DOCKER_TIMEOUT = '800'  // 10 minutos
 
     }
 
@@ -62,6 +65,9 @@ pipeline {
                     script {
                         echo 'Build and Push Image to GCR............'
                         sh '''
+                        export DOCKER_CLI_EXPERIMENTAL=enabled
+                        export DOCKER_BUILDKIT=1
+
                        gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                        gcloud config set project ${GCP_PROJECT}
                        gcloud auth configure-docker  --quiet
