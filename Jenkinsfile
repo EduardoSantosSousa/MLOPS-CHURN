@@ -49,11 +49,11 @@ pipeline {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     script {
                         echo 'DVC Pull........'
-                         sh '''
+                         sh """
                             # ativa o virtualenv
                             . ${VENV_DIR}/bin/activate
                             dvc pull
-                        '''
+                        """
                     }
                 }
             }
@@ -64,17 +64,17 @@ pipeline {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     script {
                         echo 'Build and Push Image to GCR............'
-                        sh '''
+                        sh """
                         export DOCKER_CLI_EXPERIMENTAL=enabled
                         export DOCKER_BUILDKIT=1
 
-                       gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
-                       gcloud config set project ${GCP_PROJECT}
-                       gcloud auth configure-docker  --quiet
+                        gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+                        gcloud config set project ${GCP_PROJECT}
+                        gcloud auth configure-docker  --quiet
                        
-                       docker build -t gcr.io/${GCP_PROJECT}/ml-telco-churn:latest .
-                       docker push gcr.io/${GCP_PROJECT}/ml-telco-churn:latest
-                        '''
+                        docker build -t gcr.io/${GCP_PROJECT}/ml-telco-churn:latest .
+                        docker push gcr.io/${GCP_PROJECT}/ml-telco-churn:latest
+                        """
                     }
                 }
             }
@@ -84,7 +84,7 @@ pipeline {
             steps {withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                 script {
                       echo 'Deploy to GKE'
-                      sh '''
+                      sh """
                         export PATH=$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
@@ -101,7 +101,7 @@ pipeline {
                         
                         kubectl apply -f k8s/grafana-deployment.yaml
                         kubectl apply -f k8s/grafana-service.yaml
-                        '''
+                        """
                     }
                 }
             }
