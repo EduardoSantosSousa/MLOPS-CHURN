@@ -7,15 +7,15 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
+# Copia todo o resto da aplicação
+COPY . .
+
 # Copia o requirements e instala
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Train the model before running the application
 RUN python pipeline/training_pipeline.py
-
-# Copia todo o resto da aplicação
-COPY . .
 
 # Expõe a porta do Flask
 EXPOSE 5000
