@@ -106,33 +106,32 @@ pipeline {
             }
         }
 
-        stage('Run Training Job') {
-            steps {
-                    withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    script {
-                            echo 'Starting Model Training...'
-                            sh """
-                             export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
-                             gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
-                             gcloud config set project ${GCP_PROJECT}
-                             gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
+       stage('Run Training Job') {
+            steps {withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                script {
+                    echo 'Starting Model Training...'
+                    sh '''#!/bin/bash
+                        export PATH=$PATH:'${GCLOUD_PATH}':'${KUBECTL_AUTH_PLUGIN}'
+                        gcloud auth activate-service-account --key-file='${GOOGLE_APPLICATION_CREDENTIALS}'
+                        gcloud config set project '${GCP_PROJECT}'
+                        gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
                     
-                            # Aplica os manifestos do PostgreSQL
-                            kubectl apply -f k8s/postgres.yaml
+                        # Aplica os manifestos do PostgreSQL
+                        kubectl apply -f k8s/postgres.yaml
                     
-                            # Espera o PostgreSQL ficar pronto
-                            kubectl rollout status deployment/postgres --timeout=300s
+                        # Espera o PostgreSQL ficar pronto
+                        kubectl rollout status deployment/postgres --timeout=300s
                     
-                            # Executa o job de treinamento
-                            kubectl delete job ml-training-job --ignore-not-found
-                            kubectl apply -f k8s/training-job.yaml
+                        # Executa o job de treinamento
+                        kubectl delete job ml-training-job --ignore-not-found
+                        kubectl apply -f k8s/training-job.yaml
                     
-                            # Monitora o completion do job (timeout de 30 minutos)
-                            kubectl wait --for=condition=complete --timeout=1800s job/ml-training-job
+                        # Monitora o completion do job
+                        kubectl wait --for=condition=complete --timeout=1800s job/ml-training-job
                     
-                            # Captura logs para debug
-                            kubectl logs job/ml-training-job --all-containers=true --tail=50
-                            """
+                        # Captura logs para debug
+                        kubectl logs job/ml-training-job --all-containers=true --tail=50
+                    '''
             }
         }
     }
