@@ -6,11 +6,7 @@ data:
   prometheus.yml: |
     global:
       scrape_interval: 15s
-      scrape_timeout: 30s  # Timeout aumentado
-
     scrape_configs:
       - job_name: 'churn-app'
-        metrics_path: '/metrics'
-        scrape_timeout: 30s 
         static_configs:
-          - targets: ['churn-app.default.svc.cluster.local:80']  
+          - targets: ['churn-app.default.svc.cluster.local:80']
