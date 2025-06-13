@@ -11,11 +11,28 @@ logger = get_logger(__name__)
 
 class DataIngestion:
 
-    def __init__(self, db_params, output_dir):
-        self.db_params= db_params
-        self.output_dir = output_dir
+    #def __init__(self, db_params, output_dir):
+    #    self.db_params= db_params
+    #    self.output_dir = output_dir
 
-        os.makedirs(self.output_dir, exist_ok=True)
+    #    os.makedirs(self.output_dir, exist_ok=True)
+
+    def __init__(self, db_params=None, output_dir=RAW_DATA_DIR):
+        if db_params is None:
+            # Lê variáveis de ambiente (para Kubernetes)
+            self.db_params = {
+                'host': os.getenv('DB_HOST', 'localhost'),
+                'port': os.getenv('DB_PORT', '5432'),
+                'user': os.getenv('DB_USER', 'postgres'),
+                'password': os.getenv('DB_PASSWORD', 'postgres'),
+                'dbname': os.getenv('DB_NAME', 'postgres')
+            }
+        else:
+            self.db_params = db_params
+
+        self.output_dir = output_dir
+        os.makedirs(self.output_dir, exist_ok=True)        
+
 
     def connect_to_db(self):
         try:
