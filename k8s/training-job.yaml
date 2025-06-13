@@ -9,7 +9,7 @@ spec:
       containers:
       - name: training-container
         image: gcr.io/serious-cat-455501-d2/ml-telco-churn:latest
-        command: ["python", "pipeline/training_pipeline.py"]
+        command: ["python", "-m", "pipeline/training_pipeline.py"]
         env:
           - name: DB_HOST
             value: "postgres-service" # Nome do serviço do PostgreSQL
