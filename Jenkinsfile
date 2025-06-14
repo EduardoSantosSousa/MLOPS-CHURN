@@ -98,9 +98,6 @@ pipeline {
                         git config user.email "eduardosousa.eds@gmail.com"
                         git config user.name "Eduardo Sousa"
 
-                        # 1) Garante que você está na main
-                        git checkout main || git checkout -b main
-
                         # git add dos .dvc files gerados
                         git add artifacts/model.dvc \
                             artifacts/encoders.dvc \
@@ -110,7 +107,7 @@ pipeline {
                         git commit -m "Atualização automática do modelo treinado via Jenkins [CI]"
 
                         # Push usando token
-                        git push https://${GIT_USER}:${GIT_TOKEN}@github.com/EduardoSantosSousa/MLOPS-CHURN.git main
+                        git push https://${GIT_USER}:${GIT_TOKEN}@github.com/EduardoSantosSousa/MLOPS-CHURN.git HEAD:main
 
                         dvc push
                         """
