@@ -8,20 +8,11 @@ import pandas as pd
 import sqlalchemy
 
 ### Transform Step.....
-#def load_to_sql(file_path):
-#    conn = BaseHook.get_connection('postgres_default')  
-#    engine = sqlalchemy.create_engine(f"postgresql+psycopg2://{conn.login}:{conn.password}@mlops-project-telco-custumer-church_a11a23-postgres-1:{conn.port}/{conn.schema}")
-#    df = pd.read_csv(file_path)
-#    df.to_sql(name="Telco_Customer_Churn", con=engine, if_exists="replace", index=False)
-
 def load_to_sql(file_path):
-    conn = BaseHook.get_connection('postgres_kubernetes')  # Nova conexão
-    
-    # Use o endereço do serviço Kubernetes
-    engine = sqlalchemy.create_engine(
-        f"postgresql+psycopg2://{conn.login}:{conn.password}@"
-        f"{conn.host}:{conn.port}/{conn.schema}"  # Host = nome do serviço
-    )
+    conn = BaseHook.get_connection('postgres_default')  
+    engine = sqlalchemy.create_engine(f"postgresql+psycopg2://{conn.login}:{conn.password}@mlops-project-telco-custumer-church_a11a23-postgres-1:{conn.port}/{conn.schema}")
+    df = pd.read_csv(file_path)
+    df.to_sql(name="Telco_Customer_Churn", con=engine, if_exists="replace", index=False)
 
 
 # Define the DAG

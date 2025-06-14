@@ -1,5 +1,5 @@
-import psycopg2
 import pandas as pd
+from google.cloud import storage
 from utils.logger import get_logger
 from utils.custom_exception import CustomException
 from utils.common_functions import read_yaml
@@ -11,65 +11,77 @@ logger = get_logger(__name__)
 
 class DataIngestion:
 
-    def __init__(self, db_params, output_dir):
-        self.db_params= db_params
+    def __init__(self, gcs_params, output_dir):
+        """
+        gcs_params deve conter:
+          - "project_id": "<your_gcp_project_id>"
+          - "bucket_name": "<your_bucket_name>"
+          - "file_name": "<your_file_name_in_gcs>"
+        """
+        self.gcs_params = gcs_params
         self.output_dir = output_dir
 
         os.makedirs(self.output_dir, exist_ok=True)        
 
-
-    def connect_to_db(self):
-        try:
-            conn = psycopg2.connect(
-                host = self.db_params['host'],
-                port = self.db_params['port'],
-                dbname = self.db_params['dbname'],
-                user = self.db_params['user'],
-                password = self.db_params['password']
-            )    
-
-            logger.info("Database connection established........")
-            return conn
-        except Exception as e:
-            logger.error(f"Error while establishing connection {e}")
-            raise CustomException(str(e), sys)
-
     def extract_data(self):
+        """
+        Baixa o CSV diretamente do GCS.
+        """
         try:
-            conn = self.connect_to_db()
-            query = 'SELECT * FROM public."Telco_Customer_Churn"';
-            df = pd.read_sql_query(query, conn)
-            conn.close()
-            logger.info("Data Exctracted from DB...")
+            logger.info("Starting GCS Download.")
+            storage_client = storage.Client(project=self.gcs_params['project_id'])
+
+            bucket = storage_client.bucket(self.gcs_params['bucket_name'])
+            blob = bucket.blob(self.gcs_params['file_name'])
+
+            local_file = os.path.join(self.output_dir, self.gcs_params['file_name'])
+
+            blob.download_to_filename(local_file)
+
+            logger.info("Downloaded CSV from GCS.")
+            df = pd.read_csv(local_file)
             return df
+
         except Exception as e:
-            logger.error(f"Error while extracting data {e}")
+            logger.error(f"Error while downloading from GCS {e}")
             raise CustomException(str(e), sys)
 
-    def save_date(self, df):
+    def save_data(self, df):
+        """
+        Salva o CSV para um diretório local.
+        """
         try:
-            df.to_csv(RAW_DATA, index = None)
+            local_file = os.path.join(self.output_dir, "Telco-Customer-Churn.csv")
+            df.to_csv(local_file, index=None)
 
-            logger.info("Data Saving Done.....")
-
+            logger.info("Data Saving Done.")
         except Exception as e:
             logger.error(f"Error while saving data {e}")
             raise CustomException(str(e), sys) 
 
+
     def run(self):
+        """
+        Main pipeline.
+        """
         try:
             logger.info("Data Ingestion Pipeline Started....")
             df = self.extract_data()
-            self.save_date(df)
+            self.save_data(df)
             logger.info("End of Data Ingestion Pipeline....")
-
         except Exception as e:
-            logger.error(f"Error while data Ingestion Pipelin.... {e}")
+            logger.error(f"Error while data Ingestion pipeline.... {e}")
             raise CustomException(str(e), sys)     
         
 
-if __name__ =="__main__":
-    config_db = read_yaml(file_path=CONFIG_PATH)
-    db_params = config_db['db_config']
-    data_ingestion = DataIngestion(db_params=db_params, output_dir=RAW_DATA_DIR)
+if __name__ == "__main__":
+    config = read_yaml(file_path=CONFIG_PATH)
+
+    gcs_params = {
+        "project_id": config['project_id'],
+        "bucket_name": config['gcs_config']['bucket_name'],
+        "file_name": config['gcs_config']['file_name'],
+    }
+    data_ingestion = DataIngestion(gcs_params=gcs_params, output_dir=RAW_DATA_DIR)
     data_ingestion.run()
+

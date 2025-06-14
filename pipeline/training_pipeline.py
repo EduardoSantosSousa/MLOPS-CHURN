@@ -14,11 +14,16 @@ def main():
     try:
         # 1) Lê configurações
         config = read_yaml(CONFIG_PATH)
-        db_params = config["db_config"]
+
+        gcs_params = {
+            "project_id": config['project_id'],
+            "bucket_name": config['gcs_config']['bucket_name'],
+            "file_name": config['gcs_config']['file_name'],
+        }
 
         # 2) Ingestão
         logger.info("=== STEP 1: Data Ingestion ===")
-        ingestion = DataIngestion(db_params=db_params, output_dir=RAW_DATA_DIR)
+        ingestion = DataIngestion(gcs_params=gcs_params, output_dir=RAW_DATA_DIR)
         ingestion.run()
 
         # 3) Processamento

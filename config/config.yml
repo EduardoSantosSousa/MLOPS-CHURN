@@ -1,9 +1,8 @@
-db_config:
-  host: mlops-project-telco-custumer-church_a11a23-postgres-1
-  port: 5432
-  user: postgres
-  password: postgres
-  dbname: postgres
+project_id: "serious-cat-455501-d2"
+
+gcs_config:
+  bucket_name: "my_bucket_custumer_churn"
+  file_name: "Telco-Customer-Churn.csv"
 
 split_data_config:
   train_ratio : 0.8
