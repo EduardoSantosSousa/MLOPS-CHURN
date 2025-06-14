@@ -77,7 +77,11 @@ pipeline {
 
         stage('Train and Version Model') {
             steps {
-                withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                withCredentials([
+                    file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS'),
+                    usernamePassword(credentialsId: 'github-token-telco-churn', usernameVariable: 'GIT_USER',
+                    passwordVariable: 'GIT_TOKEN')
+                    ]) {
                     script {
                         sh """
                         . ${VENV_DIR}/bin/activate
@@ -104,7 +108,9 @@ pipeline {
                             artifacts/data.dvc
 
                         git commit -m "Atualização automática do modelo treinado via Jenkins [CI]"
-                        git push origin main
+
+                        # Push usando token
+                        git push https://${GIT_USER}:${GIT_TOKEN}@github.com/EduardoSantosSousa/MLOPS-CHURN.git main
 
                         dvc push
                         """
