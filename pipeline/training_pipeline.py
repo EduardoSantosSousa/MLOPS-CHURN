@@ -1,4 +1,4 @@
-# pipeline.py
+# training_pipeline.py
 import sys
 from utils.common_functions import read_yaml
 from config.paths_config import *

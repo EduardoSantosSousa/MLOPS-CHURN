@@ -20,9 +20,6 @@ COPY . .
 # Install the package in editable mode
 RUN pip install --no-cache-dir -e .
 
-# Model Training
-RUN python pipeline/training_pipeline.py
-
 # Expõe a porta do Flask
 EXPOSE 5000
 
