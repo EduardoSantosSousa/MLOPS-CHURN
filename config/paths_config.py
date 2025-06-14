@@ -15,7 +15,7 @@ CONFIG_PATH = os.path.join(PROJECT_ROOT, 'config', 'config.yml')
 
 # Directories and data files
 RAW_DATA_DIR = os.path.join(PROJECT_ROOT, 'artifacts', 'data')
-RAW_DATA = os.path.join(RAW_DATA_DIR, 'telco_custumer_churn.csv')
+RAW_DATA = os.path.join(RAW_DATA_DIR, 'Telco-Customer-Churn.csv')
 
 RAW_DATA_TRAIN = os.path.join(RAW_DATA_DIR,'train.csv') 
 RAW_DATA_TEST = os.path.join(RAW_DATA_DIR,'test.csv')
