@@ -80,26 +80,31 @@ pipeline {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     script {
                         sh """
-                            . ${VENV_DIR}/bin/activate
+                        . ${VENV_DIR}/bin/activate
 
-                            echo "Running full training pipeline"
-                            python  pipeline/training_pipeline.py
+                        echo "Running full training pipeline"
+                        python pipeline/training_pipeline.py
 
-                            echo "Adding new artifacts to DVC"
-                            dvc add artifacts/model/
-                            dvc add artifacts/encoders/
-                            dvc add artifacts/processed/
-                            dvc add artifacts/data/
+                        echo "Adding new artifacts to DVC"
+                        dvc add artifacts/model
+                        dvc add artifacts/encoders
+                        dvc add artifacts/processed
+                        dvc add artifacts/data
 
-                            git config user.email "eduardosousa.eds@gmail.com"
-                            git config user.name "Eduardo Sousa"
+                        git config user.email "eduardosousa.eds@gmail.com"
+                        git config user.name "Eduardo Sousa"
 
-                            git add artifacts/ data.dvc encoders.dvc model.dvc processed.dvc
-                            git commit -m "Atualização automática do modelo treinado via Jenkins [CI]"
-                            git push origin main
+                        # git add dos .dvc files gerados
+                        git add artifacts/model.dvc \
+                            artifacts/encoders.dvc \
+                            artifacts/processed.dvc \
+                            artifacts/data.dvc
 
-                            dvc push
-                        """
+                        git commit -m "Atualização automática do modelo treinado via Jenkins [CI]"
+                        git push origin main
+
+                        dvc push
+                    """
                     }
                 }
             }
