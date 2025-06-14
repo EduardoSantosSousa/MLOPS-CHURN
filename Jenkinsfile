@@ -33,13 +33,29 @@ pipeline {
             steps {
                 script {
                     echo 'Making a virtual enviroment......'
-                    sh '''
+                    sh ''' 
                     python -m venv ${VENV_DIR}
+                    python -m venv ${VENV_DIR} --clear 
                     . ${VENV_DIR}/bin/activate
+                    pip install --upgrade pip setuptools wheel
                     pip install --upgrade pip
+                    pip install --upgrade dvc google-auth google-cloud-storage
                     pip install -e .
                     pip install dvc
                     '''
+                }
+            }
+        }
+
+        stage("Validate Credentials.........."){
+            steps{
+                withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]){
+                    script{
+                        sh """
+                        . ${VENV_DIR}/bin/activate
+                        python -c "import os; print('Credenciais:', os.environ['GOOGLE_APPLICATION_CREDENTIALS'])"
+                        """
+                    }
                 }
             }
         }
@@ -68,6 +84,7 @@ pipeline {
                             export DOCKER_CLI_EXPERIMENTAL=enabled
                             export DOCKER_BUILDKIT=1
 
+                            export PATH=$PATH:${GCLOUD_PATH}
                             gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                             gcloud config set project ${GCP_PROJECT}
                             gcloud auth configure-docker  --quiet
