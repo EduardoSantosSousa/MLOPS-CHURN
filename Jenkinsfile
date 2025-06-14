@@ -8,7 +8,7 @@ pipeline {
         KUBECTL_AUTH_PLUGIN = "usr/lib/google-cloud-sdk/bin"
         DOCKER_CLI_EXPERIMENTAL = 'enabled'
         DOCKER_BUILDKIT = '1'
-        DOCKER_TIMEOUT = '800'  // 10 minutos
+        DOCKER_TIMEOUT = '1000'  // 10 minutos
 
     }
 
