@@ -106,7 +106,7 @@ pipeline {
                 ]) {
                     sh """
                     export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
-                    gcloud auth activate-service-account --key_file=${GOOGLE_APPLICATION_CREDENTIALS}
+                    gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                     gcloud config set project ${GCP_PROJECT}
                     gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
 
@@ -143,7 +143,7 @@ pipeline {
                     echo 'Running Model Training...'
                     sh """
                     export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
-                    gcloud auth activate-service-account --key_file=${GOOGLE_APPLICATION_CREDENTIALS}
+                    gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                     gcloud config set project ${GCP_PROJECT}
                     gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
 
