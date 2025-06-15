@@ -1,8 +1,7 @@
-# training_pipeline.py
+#training_pipeline.py
 import os
 import sys
 import mlflow
-from mlflow.tracking import MlflowClient
 from utils.common_functions import read_yaml
 from config.paths_config import *
 from src.data_ingestion import DataIngestion
@@ -24,47 +23,57 @@ def main():
     try:
         # 1) Lê configurações
         config = read_yaml(CONFIG_PATH)
-        
+
         # Configura MLflow
         setup_mlflow(config)
 
-        gcs_params = {
-            "project_id": config['project_id'],
-            "bucket_name": config['gcs_config']['bucket_name'],
-            "file_name": config['gcs_config']['file_name'],
-        }
+        # Define experimento
+        experiment_name = config.get("mlflow_config", {}).get("experiment_name", "default")
+        mlflow.set_experiment(experiment_name)
+        logger.info(f"Set MLflow experiment: {experiment_name}")
 
-        # 2) Ingestão
-        logger.info("=== STEP 1: Data Ingestion ===")
-        ingestion = DataIngestion(gcs_params=gcs_params, output_dir=RAW_DATA_DIR)
-        ingestion.run()
+        # Cria um run principal que engloba todo o pipeline
+        with mlflow.start_run(run_name="full_training_pipeline"):
+            # 2) Ingestão
+            logger.info("=== STEP 1: Data Ingestion ===")
+            ingestion = DataIngestion(
+                gcs_params={
+                    "project_id": config['project_id'],
+                    "bucket_name": config['gcs_config']['bucket_name'],
+                    "file_name": config['gcs_config']['file_name'],
+                },
+                output_dir=RAW_DATA_DIR
+            )
+            ingestion.run()
 
-        # 3) Processamento
-        logger.info("=== STEP 2: Data Processing ===")
-        processor = DataProcessor(
-            train_path=RAW_DATA_TRAIN,
-            test_path=RAW_DATA_TEST,
-            processed_dir=PROCESS_DATA_DIR,
-            config_path=CONFIG_PATH
-        )
-        processor.split_data()
-        processor.run()
+            # 3) Processamento
+            logger.info("=== STEP 2: Data Processing ===")
+            processor = DataProcessor(
+                train_path=RAW_DATA_TRAIN,
+                test_path=RAW_DATA_TEST,
+                processed_dir=PROCESS_DATA_DIR,
+                config_path=CONFIG_PATH
+            )
+            processor.split_data()
+            processor.run()
 
-        # 4) Treinamento
-        logger.info("=== STEP 3: Model Training ===")
-        trainer = ModelTrainer(
-            train_path=PROCESSED_TRAIN_DATA_PATH,
-            test_path=PROCESSED_TEST_DATA_PATH,
-            config_path=CONFIG_PATH
-        )
-        X_train, y_train, X_test, y_test = trainer.load_data()
-        trainer.train_model(X_train, y_train, X_test, y_test)
+            # 4) Treinamento
+            logger.info("=== STEP 3: Model Training ===")
+            trainer = ModelTrainer(
+                train_path=PROCESSED_TRAIN_DATA_PATH,
+                test_path=PROCESSED_TEST_DATA_PATH,
+                config_path=CONFIG_PATH
+            )
+            X_train, y_train, X_test, y_test = trainer.load_data()
+            # Dentro do train_model já há um nested run e logs de métricas e modelo
+            trainer.train_model(X_train, y_train, X_test, y_test)
 
         logger.info("=== PIPELINE COMPLETED SUCCESSFULLY ===")
 
     except Exception as e:
         logger.error(f"Pipeline failed: {e}")
         raise CustomException(str(e), sys)
+
 
 if __name__ == "__main__":
     main()

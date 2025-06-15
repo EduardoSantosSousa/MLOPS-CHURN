@@ -24,8 +24,9 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
-        # Não expomos usuário/senha no servidor sem um proxy/Nginx
-        # Se não for necessário proteger, basta apontar o client para http://mlflow-service:5000
+        env:
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: "/app/credentials.json"
         command:
         - mlflow
         - server
@@ -36,6 +37,8 @@ spec:
         - --host
         - 0.0.0.0
         volumeMounts:
+        - name: mlflow-storage
+          mountPath: /mlflow
         - name: gcp-secret
           mountPath: /app/credentials.json
           subPath: credentials.json
@@ -51,7 +54,12 @@ spec:
             port: 5000
           initialDelaySeconds: 15
           periodSeconds: 5
+
       volumes:
+      - name: mlflow-storage
+        persistentVolumeClaim:
+          claimName: mlflow-pvc
       - name: gcp-secret
         secret:
           secretName: gcp-key
+
