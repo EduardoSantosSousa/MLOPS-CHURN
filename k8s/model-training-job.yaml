@@ -4,17 +4,19 @@ kind: Job
 metadata:
   name: model-training-job
 spec:
+  backoffLimit: 4
   template:
     spec:
+      restartPolicy: Never
       containers:
       - name: trainer
         image: gcr.io/serious-cat-455501-d2/ml-telco-churn:latest
+        command: ["python", "pipeline/training_pipeline.py"]
         env:
         - name: MLFLOW_TRACKING_URI
           value: "http://mlflow-service:5000"
         - name: GOOGLE_APPLICATION_CREDENTIALS
           value: "/app/credentials.json"
-        command: ["python", "pipeline/training_pipeline.py"]
         volumeMounts:
         - name: gcp-secret
           mountPath: "/app/credentials.json"
@@ -23,5 +25,3 @@ spec:
       - name: gcp-secret
         secret:
           secretName: gcp-key
-      restartPolicy: Never
-  backoffLimit: 4

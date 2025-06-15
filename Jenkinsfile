@@ -106,7 +106,7 @@ pipeline {
                 ]) {
                     sh """
                     export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
-                    gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+                    gcloud auth activate-service-account --key_file=${GOOGLE_APPLICATION_CREDENTIALS}
                     gcloud config set project ${GCP_PROJECT}
                     gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
 
@@ -133,61 +133,25 @@ pipeline {
         stage('Run Model Training') {
             steps {
                 withCredentials([
-                    file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS'),
+                    file(credentialsId:'gcp-key', variable:'GOOGLE_APPLICATION_CREDENTIALS'),
                     usernamePassword(
-                        credentialsId: 'mlflow-credentials',
-                        usernameVariable: 'MLFLOW_USERNAME',
-                        passwordVariable: 'MLFLOW_PASSWORD'
+                        credentialsId:'mlflow-credentials',
+                        usernameVariable:'MLFLOW_USERNAME',
+                        passwordVariable:'MLFLOW_PASSWORD'
                     )
                 ]) {
-                    script {
-                        writeFile file:'training-job.yaml', text: """ 
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: model-training-job
-spec:
-  backoffLimit: 4
-  template:
-    spec:
-      restartPolicy: Never
-      containers:
-      - name: trainer
-        image: gcr.io/${GCP_PROJECT}/ml-telco-churn:latest
-        env:
-        - name: MLFLOW_TRACKING_USERNAME
-          value: "${MLFLOW_USERNAME}"
-        - name: MLFLOW_TRACKING_PASSWORD
-          value: "${MLFLOW_PASSWORD}"
-        - name: MLFLOW_TRACKING_URI
-          value: "http://mlflow-service:5000"
-        - name: GOOGLE_APPLICATION_CREDENTIALS
-          value: "/app/credentials.json"
-        command: ["python", "pipeline/training_pipeline.py"]
-        volumeMounts:
-        - name: gcp-secret
-          mountPath: "/app/credentials.json"
-          subPath: "credentials.json"
-      volumes:
-      - name: gcp-secret
-        secret:
-          secretName: gcp-key
-"""  
+                    echo 'Running Model Training...'
+                    sh """
+                    export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
+                    gcloud auth activate-service-account --key_file=${GOOGLE_APPLICATION_CREDENTIALS}
+                    gcloud config set project ${GCP_PROJECT}
+                    gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
 
-                        sh """
-                        export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
-
-                        # Apply the job
-                        kubectl apply -f training-job.yaml
-
-                        # Wait for the job to complete
-                        kubectl wait --for=condition=complete job/model-training-job --timeout=1800s
-
-                        # Retrieve and show logs
-                        TRAINING_POD=\$(kubectl get pod -l job-name=model-training-job -o jsonpath='{.items[0].metadata.name}')
-                        kubectl logs \${TRAINING_POD}
-                        """
-                    }
+                    kubectl apply -f k8s/model-training-job.yaml
+                    kubectl wait --for=condition=complete job/model-training-job --timeout=2800s
+                    TRAINING_POD=\$(kubectl get pod -l job-name=model-training-job -o jsonpath='{.items[0].metadata.name}')
+                    kubectl logs \${TRAINING_POD}
+                    """
                 }
             }
         }
@@ -198,8 +162,8 @@ spec:
                     file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS'),
                     usernamePassword(
                         credentialsId: 'github-token-telco-churn',
-                        usernameVariable: 'GIT_USER',
-                        passwordVariable: 'GIT_TOKEN'
+                        usernameVariable:'GIT_USER',
+                        passwordVariable:'GIT_TOKEN'
                     )
                 ]) {
                     sh """
