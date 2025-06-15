@@ -1,5 +1,8 @@
 # training_pipeline.py
+import os
 import sys
+import mlflow
+from mlflow.tracking import MlflowClient
 from utils.common_functions import read_yaml
 from config.paths_config import *
 from src.data_ingestion import DataIngestion
@@ -10,10 +13,28 @@ from utils.custom_exception import CustomException
 
 logger = get_logger(__name__)
 
+def setup_mlflow(config):
+    """Configura o MLflow Tracking URI com base no config.yml."""
+    mlflow_config = config.get("mlflow_config", {})
+    tracking_uri = mlflow_config.get("tracking_uri", "http://mlflow-service:5000")
+    
+    # Pega credenciais do config.yml OU variáveis de ambiente (prioridade para env vars)
+    username = os.getenv("MLFLOW_TRACKING_USERNAME", mlflow_config.get("tracking_username", ""))
+    password = os.getenv("MLFLOW_TRACKING_PASSWORD", mlflow_config.get("tracking_password", ""))
+    
+    if username and password:
+        tracking_uri = tracking_uri.replace("http://", f"http://{username}:{password}@")
+    
+    mlflow.set_tracking_uri(tracking_uri)
+    logger.info(f"MLflow Tracking URI configured: {mlflow.get_tracking_uri()}")
+
 def main():
     try:
         # 1) Lê configurações
         config = read_yaml(CONFIG_PATH)
+        
+        # Configura MLflow
+        setup_mlflow(config)
 
         gcs_params = {
             "project_id": config['project_id'],

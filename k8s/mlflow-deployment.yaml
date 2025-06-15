@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mlflow
+  labels:
+    app: mlflow
 spec:
   replicas: 1
   selector:
@@ -11,6 +13,9 @@ spec:
     metadata:
       labels:
         app: mlflow
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "5000"
     spec:
       containers:
       - name: mlflow
@@ -28,4 +33,26 @@ spec:
             secretKeyRef:
               name: mlflow-secrets
               key: password
-        command: ["mlflow", "server", "--host", "0.0.0.0"]
+        command: 
+        - mlflow
+        - server
+        - --backend-store-uri
+        - sqlite:////mlflow/mlflow.db
+        - --default-artifact-root
+        - gs://my_bucket_custumer_churn  # Substitua pelo seu bucket GCS
+        - --host
+        - 0.0.0.0
+        volumeMounts:
+        - name: gcp-secret
+          mountPath: "/app/credentials.json"
+          subPath: "credentials.json"
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+      volumes:
+      - name: gcp-secret
+        secret:
+          secretName: gcp-key

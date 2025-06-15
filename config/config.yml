@@ -4,6 +4,11 @@ gcs_config:
   bucket_name: "my_bucket_custumer_churn"
   file_name: "Telco-Customer-Churn.csv"
 
+mlflow_config:
+  tracking_username: "mlflowadmin"  # Ou deixe vazio se usar variáveis de ambiente
+  tracking_password: "mlflowadmin"  # Ou deixe vazio se usar variáveis de ambiente
+  tracking_uri: "http://mlflow-service:5000"  # URI base (sem credenciais)
+
 split_data_config:
   train_ratio : 0.8
   random_state: 42
