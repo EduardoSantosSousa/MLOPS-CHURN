@@ -5,8 +5,6 @@ pipeline {
         GCP_PROJECT = 'serious-cat-455501-d2'
         GCLOUD_PATH = "/var/jenkins_home/google-cloud-sdk/bin"
         KUBECTL_AUTH_PLUGIN = "usr/lib/google-cloud-sdk/bin"
-        DOCKER_BUILDKIT = '1'
-        DOCKER_TIMEOUT = '1000'  // 10 minutos
     }
 
     stages {
@@ -74,8 +72,8 @@ pipeline {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                     script {
                         sh """
-                        export DOCKER_CLI_EXPERIMENTAL=enabled
-                        export DOCKER_BUILDKIT=1
+                         export DOCKER_CLI_TIMEOUT=1000  # 10 minutos (em segundos)
+                         export COMPOSE_HTTP_TIMEOUT=1000
 
                         export PATH=\$PATH:${GCLOUD_PATH}
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
