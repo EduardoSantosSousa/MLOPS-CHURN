@@ -66,6 +66,7 @@ pipeline {
                     sh """
                     export DOCKER_CLI_EXPERIMENTAL=enabled
                     export DOCKER_BUILDKIT=1
+                    DOCKER_TIMEOUT = '1000'
 
                     export PATH=\$PATH:${GCLOUD_PATH}
                     gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
@@ -83,27 +84,33 @@ pipeline {
         }
 
         stage('Deploy Kubernetes Infra') {
-            steps {
-                withCredentials([ file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS') ]) {
-                    sh """
-                    export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
-                    gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
-                    gcloud config set project ${GCP_PROJECT}
-                    gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
+    steps {
+        withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+      sh """
+      set -e  # Fail on error
+      export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
+      gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+      gcloud config set project ${GCP_PROJECT}
+      gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
 
-                    # Aplica MLflow, churn-app, Prometheus e Grafana
-                    kubectl apply -f k8s/
+      kubectl apply -f k8s/
 
-                    # Espera cada rollout
-                    for deploy in mlflow churn-app prometheus grafana; do
-                      if kubectl get deployment $deploy &>/dev/null; then
-                        kubectl rollout status deployment/$deploy --timeout=120s
-                      fi
-                    done
-                    """
-                }
-            }
-        }
+      # Lista de deployments esperados
+      deployments=("mlflow" "churn-app" "prometheus" "grafana")
+      
+      for deployment in "\${deployments[@]}"; do
+        echo "Checking deployment: \$deployment"
+        if kubectl get deployment \$deployment > /dev/null 2>&1; then
+          echo "✅ Found deployment: \$deployment"
+          kubectl rollout status deployment/\$deployment --timeout=300s
+        else
+          echo "⚠️ Deployment not found: \$deployment"
+        fi
+      done
+      """
+    }
+  }
+}
 
         stage('Run Model Training') {
             steps {

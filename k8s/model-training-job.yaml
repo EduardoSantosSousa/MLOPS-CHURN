@@ -15,8 +15,8 @@ spec:
           - sh
           - -c
           - |
-            echo "Aguardando mlflow-service estar resolvível pelo DNS..."
-            until nslookup mlflow-service; do
+            echo "Aguardando MLflow..."
+            until curl -s http://mlflow-service:5000; do
               echo "Ainda não resolvido, tentando novamente em 5s"
               sleep 5
             done

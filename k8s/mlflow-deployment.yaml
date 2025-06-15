@@ -36,6 +36,8 @@ spec:
         - gs://my_bucket_custumer_churn
         - --host
         - 0.0.0.0
+        - --port
+        - "5000"
         volumeMounts:
         - name: mlflow-storage
           mountPath: /mlflow
