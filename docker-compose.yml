@@ -1,15 +1,48 @@
-version: '3'
-services:
+version: '3.8'
 
-  # Seu app Flask
-  churn-app:
-    build: .
-    image: telco-churn:latest
-    container_name: churn-app
+services:
+  mlflow:
+    image: ghcr.io/mlflow/mlflow:v2.13.1
+    container_name: mlflow-server
     ports:
-      - "5000:5000"
+      - "5001:5000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    command: >
+      mlflow server
+      --backend-store-uri sqlite:////mlflow/mlflow.db
+      --default-artifact-root file:///mlflow/artifacts
+      --host 0.0.0.0
+    volumes:
+      - ./mlflow:/mlflow
     networks:
       - monitoring
+
+  churn-app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    image: telco-churn:latest
+    environment:
+      MLFLOW_TRACKING_URI: "http://mlflow:5000"
+      GOOGLE_APPLICATION_CREDENTIALS: "/app/Project_keys.json"  # Atualizado
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+      - ./Project_keys.json:/app/Project_keys.json  # Atualizado
+    command: >
+      sh -c "python pipeline/training_pipeline.py && 
+             python application.py"
+    networks:
+      - monitoring
+    depends_on:
+      mlflow:
+        condition: service_healthy
+
 
   prometheus:
     image: prom/prometheus:latest
@@ -38,4 +71,3 @@ services:
 networks:
   monitoring:
     driver: bridge
-

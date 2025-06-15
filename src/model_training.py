@@ -75,7 +75,7 @@ class ModelTrainer:
                 mlflow.log_metric("f1_score", f1)
                 mlflow.log_metric("precision", precision)
                 mlflow.log_metric("recall", recall)
-                
+    
                 # Salvando o modelo localmente primeiro
                 self.save_model(best_model)
                 

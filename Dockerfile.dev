@@ -1,0 +1,25 @@
+# Dockerfile.dev
+FROM python:3.11-slim
+
+WORKDIR /app
+RUN pip install mlflow==2.13.1 google-cloud-storage prometheus-flask-exporter
+COPY . .
+
+# Variáveis de ambiente
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PYTHONPATH="/app"
+
+# Dependências do sistema
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install the package in editable mode
+RUN pip install --no-cache-dir -e .
+
+# Expõe a porta do Flask
+EXPOSE 5000
+
+# Ponto de entrada será definido no docker-compose

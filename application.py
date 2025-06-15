@@ -1,4 +1,4 @@
-from flask import Flask, Response, render_template, request, redirect, url_for
+from flask import Flask, Response, render_template, request, redirect, url_for, jsonify
 import os
 import joblib
 import pandas as pd
@@ -8,8 +8,8 @@ from config.paths_config import *
 from prometheus_client import Counter, Gauge, generate_latest, CONTENT_TYPE_LATEST
 from utils.logger import get_logger
 
-
 logger = get_logger(__name__)
+
 
 # Caminhos do modelo e encoder
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))

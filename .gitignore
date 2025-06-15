@@ -19,7 +19,7 @@ artifacts/encoders/
 MLOPS_PROJECT_TELCO_CUSTUMER_CHURCH.egg-info/
 mlruns/
 text.txt
-helm.txt
+Docker_Teste_Poducao.md
 
 # Ignorar modelos treinados
 *.pkl

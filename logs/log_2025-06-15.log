@@ -1,0 +1,304 @@
+2025-06-15 04:54:05,250 - INFO - Succesfully read the YAML file
+2025-06-15 04:54:05,260 - INFO - === STEP 1: Data Ingestion ===
+2025-06-15 04:54:05,261 - INFO - Data Ingestion Pipeline Started....
+2025-06-15 04:54:05,261 - INFO - Starting GCS Download.
+2025-06-15 04:54:05,262 - ERROR - Error while downloading from GCS [Errno 21] Is a directory: '/app/key.json'
+2025-06-15 04:54:05,265 - ERROR - Error while data Ingestion pipeline.... Error in /app/src/data_ingestion.py, line 33: [Errno 21] Is a directory: '/app/key.json' 
+
+ Original Traceback:
+Traceback (most recent call last):
+  File "/app/src/data_ingestion.py", line 33, in extract_data
+    storage_client = storage.Client(project=self.gcs_params['project_id'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/storage/client.py", line 226, in __init__
+    super(Client, self).__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 339, in __init__
+    Client.__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 196, in __init__
+    credentials, _ = google.auth.default(scopes=scopes)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 651, in default
+    credentials, project_id = checker()
+                              ^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 644, in <lambda>
+    lambda: _get_explicit_environ_credentials(quota_project_id=quota_project_id),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 293, in _get_explicit_environ_credentials
+    credentials, project_id = load_credentials_from_file(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 129, in load_credentials_from_file
+    with io.open(filename, "r") as file_obj:
+         ^^^^^^^^^^^^^^^^^^^^^^
+IsADirectoryError: [Errno 21] Is a directory: '/app/key.json'
+
+2025-06-15 04:54:05,267 - ERROR - Pipeline failed: Error in /app/src/data_ingestion.py, line 70: Error in /app/src/data_ingestion.py, line 33: [Errno 21] Is a directory: '/app/key.json' 
+
+ Original Traceback:
+Traceback (most recent call last):
+  File "/app/src/data_ingestion.py", line 33, in extract_data
+    storage_client = storage.Client(project=self.gcs_params['project_id'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/storage/client.py", line 226, in __init__
+    super(Client, self).__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 339, in __init__
+    Client.__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 196, in __init__
+    credentials, _ = google.auth.default(scopes=scopes)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 651, in default
+    credentials, project_id = checker()
+                              ^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 644, in <lambda>
+    lambda: _get_explicit_environ_credentials(quota_project_id=quota_project_id),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 293, in _get_explicit_environ_credentials
+    credentials, project_id = load_credentials_from_file(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 129, in load_credentials_from_file
+    with io.open(filename, "r") as file_obj:
+         ^^^^^^^^^^^^^^^^^^^^^^
+IsADirectoryError: [Errno 21] Is a directory: '/app/key.json'
+ 
+
+ Original Traceback:
+Traceback (most recent call last):
+  File "/app/src/data_ingestion.py", line 33, in extract_data
+    storage_client = storage.Client(project=self.gcs_params['project_id'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/storage/client.py", line 226, in __init__
+    super(Client, self).__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 339, in __init__
+    Client.__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 196, in __init__
+    credentials, _ = google.auth.default(scopes=scopes)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 651, in default
+    credentials, project_id = checker()
+                              ^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 644, in <lambda>
+    lambda: _get_explicit_environ_credentials(quota_project_id=quota_project_id),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 293, in _get_explicit_environ_credentials
+    credentials, project_id = load_credentials_from_file(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 129, in load_credentials_from_file
+    with io.open(filename, "r") as file_obj:
+         ^^^^^^^^^^^^^^^^^^^^^^
+IsADirectoryError: [Errno 21] Is a directory: '/app/key.json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/app/src/data_ingestion.py", line 70, in run
+    df = self.extract_data()
+         ^^^^^^^^^^^^^^^^^^^
+  File "/app/src/data_ingestion.py", line 48, in extract_data
+    raise CustomException(str(e), sys)
+utils.custom_exception.CustomException: Error in /app/src/data_ingestion.py, line 33: [Errno 21] Is a directory: '/app/key.json' 
+
+ Original Traceback:
+Traceback (most recent call last):
+  File "/app/src/data_ingestion.py", line 33, in extract_data
+    storage_client = storage.Client(project=self.gcs_params['project_id'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/storage/client.py", line 226, in __init__
+    super(Client, self).__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 339, in __init__
+    Client.__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 196, in __init__
+    credentials, _ = google.auth.default(scopes=scopes)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 651, in default
+    credentials, project_id = checker()
+                              ^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 644, in <lambda>
+    lambda: _get_explicit_environ_credentials(quota_project_id=quota_project_id),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 293, in _get_explicit_environ_credentials
+    credentials, project_id = load_credentials_from_file(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 129, in load_credentials_from_file
+    with io.open(filename, "r") as file_obj:
+         ^^^^^^^^^^^^^^^^^^^^^^
+IsADirectoryError: [Errno 21] Is a directory: '/app/key.json'
+
+
+2025-06-15 04:54:12,354 - INFO - Succesfully read the YAML file
+2025-06-15 04:54:12,354 - INFO - === STEP 1: Data Ingestion ===
+2025-06-15 04:54:12,355 - INFO - Data Ingestion Pipeline Started....
+2025-06-15 04:54:12,355 - INFO - Starting GCS Download.
+2025-06-15 04:54:12,356 - ERROR - Error while downloading from GCS [Errno 21] Is a directory: '/app/key.json'
+2025-06-15 04:54:12,358 - ERROR - Error while data Ingestion pipeline.... Error in /app/src/data_ingestion.py, line 33: [Errno 21] Is a directory: '/app/key.json' 
+
+ Original Traceback:
+Traceback (most recent call last):
+  File "/app/src/data_ingestion.py", line 33, in extract_data
+    storage_client = storage.Client(project=self.gcs_params['project_id'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/storage/client.py", line 226, in __init__
+    super(Client, self).__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 339, in __init__
+    Client.__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 196, in __init__
+    credentials, _ = google.auth.default(scopes=scopes)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 651, in default
+    credentials, project_id = checker()
+                              ^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 644, in <lambda>
+    lambda: _get_explicit_environ_credentials(quota_project_id=quota_project_id),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 293, in _get_explicit_environ_credentials
+    credentials, project_id = load_credentials_from_file(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 129, in load_credentials_from_file
+    with io.open(filename, "r") as file_obj:
+         ^^^^^^^^^^^^^^^^^^^^^^
+IsADirectoryError: [Errno 21] Is a directory: '/app/key.json'
+
+2025-06-15 04:54:12,364 - ERROR - Pipeline failed: Error in /app/src/data_ingestion.py, line 70: Error in /app/src/data_ingestion.py, line 33: [Errno 21] Is a directory: '/app/key.json' 
+
+ Original Traceback:
+Traceback (most recent call last):
+  File "/app/src/data_ingestion.py", line 33, in extract_data
+    storage_client = storage.Client(project=self.gcs_params['project_id'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/storage/client.py", line 226, in __init__
+    super(Client, self).__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 339, in __init__
+    Client.__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 196, in __init__
+    credentials, _ = google.auth.default(scopes=scopes)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 651, in default
+    credentials, project_id = checker()
+                              ^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 644, in <lambda>
+    lambda: _get_explicit_environ_credentials(quota_project_id=quota_project_id),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 293, in _get_explicit_environ_credentials
+    credentials, project_id = load_credentials_from_file(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 129, in load_credentials_from_file
+    with io.open(filename, "r") as file_obj:
+         ^^^^^^^^^^^^^^^^^^^^^^
+IsADirectoryError: [Errno 21] Is a directory: '/app/key.json'
+ 
+
+ Original Traceback:
+Traceback (most recent call last):
+  File "/app/src/data_ingestion.py", line 33, in extract_data
+    storage_client = storage.Client(project=self.gcs_params['project_id'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/storage/client.py", line 226, in __init__
+    super(Client, self).__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 339, in __init__
+    Client.__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 196, in __init__
+    credentials, _ = google.auth.default(scopes=scopes)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 651, in default
+    credentials, project_id = checker()
+                              ^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 644, in <lambda>
+    lambda: _get_explicit_environ_credentials(quota_project_id=quota_project_id),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 293, in _get_explicit_environ_credentials
+    credentials, project_id = load_credentials_from_file(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 129, in load_credentials_from_file
+    with io.open(filename, "r") as file_obj:
+         ^^^^^^^^^^^^^^^^^^^^^^
+IsADirectoryError: [Errno 21] Is a directory: '/app/key.json'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/app/src/data_ingestion.py", line 70, in run
+    df = self.extract_data()
+         ^^^^^^^^^^^^^^^^^^^
+  File "/app/src/data_ingestion.py", line 48, in extract_data
+    raise CustomException(str(e), sys)
+utils.custom_exception.CustomException: Error in /app/src/data_ingestion.py, line 33: [Errno 21] Is a directory: '/app/key.json' 
+
+ Original Traceback:
+Traceback (most recent call last):
+  File "/app/src/data_ingestion.py", line 33, in extract_data
+    storage_client = storage.Client(project=self.gcs_params['project_id'])
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/storage/client.py", line 226, in __init__
+    super(Client, self).__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 339, in __init__
+    Client.__init__(
+  File "/usr/local/lib/python3.11/site-packages/google/cloud/client/__init__.py", line 196, in __init__
+    credentials, _ = google.auth.default(scopes=scopes)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 651, in default
+    credentials, project_id = checker()
+                              ^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 644, in <lambda>
+    lambda: _get_explicit_environ_credentials(quota_project_id=quota_project_id),
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 293, in _get_explicit_environ_credentials
+    credentials, project_id = load_credentials_from_file(
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.11/site-packages/google/auth/_default.py", line 129, in load_credentials_from_file
+    with io.open(filename, "r") as file_obj:
+         ^^^^^^^^^^^^^^^^^^^^^^
+IsADirectoryError: [Errno 21] Is a directory: '/app/key.json'
+
+
+2025-06-15 05:16:13,834 - INFO - Succesfully read the YAML file
+2025-06-15 05:16:13,836 - INFO - === STEP 1: Data Ingestion ===
+2025-06-15 05:16:13,837 - INFO - Data Ingestion Pipeline Started....
+2025-06-15 05:16:13,837 - INFO - Starting GCS Download.
+2025-06-15 05:16:16,776 - INFO - Downloaded CSV from GCS.
+2025-06-15 05:16:16,839 - INFO - Data Saving Done.
+2025-06-15 05:16:16,839 - INFO - End of Data Ingestion Pipeline....
+2025-06-15 05:16:16,839 - INFO - === STEP 2: Data Processing ===
+2025-06-15 05:16:16,842 - INFO - Succesfully read the YAML file
+2025-06-15 05:16:16,843 - INFO - Starting the splitting process.....
+2025-06-15 05:16:16,915 - INFO - Train data saved to /app/artifacts/data/train.csv
+2025-06-15 05:16:16,916 - INFO - Test data saved to /app/artifacts/data/test.csv
+2025-06-15 05:16:16,916 - INFO - Loading data from RAW directory
+2025-06-15 05:16:16,916 - INFO - Loading data
+2025-06-15 05:16:16,930 - INFO - Loading data
+2025-06-15 05:16:16,935 - INFO - Starting Data Processing Step for [train] dataset...
+2025-06-15 05:16:16,945 - INFO - Start Feature Engineering for [train] dataset...
+2025-06-15 05:16:17,093 - INFO - Applying Label Encoding
+2025-06-15 05:16:17,108 - INFO - Label encoders saved successfully at /app/artifacts/encoders/label_encoders.pkl
+2025-06-15 05:16:17,108 - INFO - Starting Data Processing Step for [test] dataset...
+2025-06-15 05:16:17,111 - INFO - Start Feature Engineering for [test] dataset...
+2025-06-15 05:16:17,150 - INFO - Applying Label Encoding
+2025-06-15 05:16:17,154 - INFO - Handling Imbalanced Data for [train] dataset...
+2025-06-15 05:16:17,176 - INFO - Data balanced sucesffuly
+2025-06-15 05:16:17,177 - INFO - Handling Imbalanced Data for [test] dataset...
+2025-06-15 05:16:17,185 - INFO - Data balanced sucesffuly
+2025-06-15 05:16:17,219 - INFO - Feature columns saved to /app/artifacts/model/feature_columns.pkl
+2025-06-15 05:16:17,219 - INFO - Saving processed [train] data to /app/artifacts/processed/processed_train.csv...
+2025-06-15 05:16:17,261 - INFO - Data saved sucessfuly to /app/artifacts/processed/processed_train.csv
+2025-06-15 05:16:17,261 - INFO - Saving processed [test] data to /app/artifacts/processed/processed_test.csv...
+2025-06-15 05:16:17,275 - INFO - Data saved sucessfuly to /app/artifacts/processed/processed_test.csv
+2025-06-15 05:16:17,276 - INFO - Data processing completed successfully
+2025-06-15 05:16:17,276 - INFO - === STEP 3: Model Training ===
+2025-06-15 05:16:17,278 - INFO - Succesfully read the YAML file
+2025-06-15 05:16:17,279 - INFO - Loading processed training and test datasets
+2025-06-15 05:16:17,294 - INFO - Starting model training with GridSearch and MLflow
+2025-06-15 05:18:57,979 - INFO - Model successfully saved to: /app/artifacts/model/best_random_forest.pkl
+2025-06-15 05:18:57,980 - INFO - Best parameters: {'max_depth': 20, 'max_features': 'sqrt', 'min_samples_leaf': 1, 'min_samples_split': 2, 'n_estimators': 200}
+2025-06-15 05:18:57,984 - INFO - 
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.79      0.84      0.81      1035
+           1       0.83      0.77      0.80      1035
+
+    accuracy                           0.80      2070
+   macro avg       0.81      0.80      0.80      2070
+weighted avg       0.81      0.80      0.80      2070
+
+2025-06-15 05:18:57,986 - INFO - Confusion Matrix:
+[[867 168]
+ [236 799]]
+2025-06-15 05:18:57,986 - INFO - Model Training Done....
+2025-06-15 05:18:58,283 - INFO - === PIPELINE COMPLETED SUCCESSFULLY ===
