@@ -784,3 +784,9 @@ weighted avg       0.81      0.80      0.80      2070
 2025-06-15 07:13:15,302 - INFO - 172.19.0.5 - - [15/Jun/2025 07:13:15] "GET /metrics HTTP/1.1" 200 -
 2025-06-15 07:13:30,303 - INFO - 172.19.0.5 - - [15/Jun/2025 07:13:30] "GET /metrics HTTP/1.1" 200 -
 2025-06-15 07:13:35,630 - INFO -  * Detected change in '/app/pipeline/training_pipeline.py', reloading
+2025-06-15 07:13:36,230 - INFO -  * Restarting with stat
+2025-06-15 07:13:39,187 - WARNING -  * Debugger is active!
+2025-06-15 07:13:39,188 - INFO -  * Debugger PIN: 602-538-911
+2025-06-15 07:13:45,303 - INFO - 172.19.0.5 - - [15/Jun/2025 07:13:45] "GET /metrics HTTP/1.1" 200 -
+2025-06-15 07:14:00,300 - INFO - 172.19.0.5 - - [15/Jun/2025 07:14:00] "GET /metrics HTTP/1.1" 200 -
+2025-06-15 07:14:15,300 - INFO - 172.19.0.5 - - [15/Jun/2025 07:14:15] "GET /metrics HTTP/1.1" 200 -
