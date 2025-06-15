@@ -1,3 +1,4 @@
+#mlflow-deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -20,38 +21,36 @@ spec:
       containers:
       - name: mlflow
         image: gcr.io/serious-cat-455501-d2/mlflow-telco:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
-        env:
-        - name: MLFLOW_TRACKING_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: mlflow-secrets
-              key: username
-        - name: MLFLOW_TRACKING_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: mlflow-secrets
-              key: password
-        command: 
+        # Não expomos usuário/senha no servidor sem um proxy/Nginx
+        # Se não for necessário proteger, basta apontar o client para http://mlflow-service:5000
+        command:
         - mlflow
         - server
         - --backend-store-uri
         - sqlite:////mlflow/mlflow.db
         - --default-artifact-root
-        - gs://my_bucket_custumer_churn  # Substitua pelo seu bucket GCS
+        - gs://my_bucket_custumer_churn
         - --host
         - 0.0.0.0
         volumeMounts:
         - name: gcp-secret
-          mountPath: "/app/credentials.json"
-          subPath: "credentials.json"
+          mountPath: /app/credentials.json
+          subPath: credentials.json
         livenessProbe:
           httpGet:
             path: /
             port: 5000
           initialDelaySeconds: 30
           periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5000
+          initialDelaySeconds: 15
+          periodSeconds: 5
       volumes:
       - name: gcp-secret
         secret:

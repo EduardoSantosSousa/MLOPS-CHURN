@@ -1,4 +1,4 @@
-# k8s/model-training-job.yaml
+#model-training-job.yaml
 apiVersion: batch/v1
 kind: Job
 metadata:
@@ -8,6 +8,19 @@ spec:
   template:
     spec:
       restartPolicy: Never
+      initContainers:
+      - name: wait-for-mlflow
+        image: busybox:1.35
+        command:
+          - sh
+          - -c
+          - |
+            echo "Aguardando mlflow-service estar resolvível pelo DNS..."
+            until nslookup mlflow-service; do
+              echo "Ainda não resolvido, tentando novamente em 5s"
+              sleep 5
+            done
+            echo "mlflow-service resolvido!"
       containers:
       - name: trainer
         image: gcr.io/serious-cat-455501-d2/ml-telco-churn:latest
