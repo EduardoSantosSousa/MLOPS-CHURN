@@ -11,7 +11,7 @@ spec:
       containers:
       - name: trainer
         image: gcr.io/serious-cat-455501-d2/ml-telco-churn:latest
-        command: ["python", "pipeline/training_pipeline.py"]
+        command: ["python","-u","pipeline/training_pipeline.py"]
         env:
         - name: MLFLOW_TRACKING_URI
           value: "http://mlflow-service:5000"

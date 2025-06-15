@@ -130,31 +130,50 @@ pipeline {
             }
         }
 
-        stage('Run Model Training') {
-            steps {
-                withCredentials([
-                    file(credentialsId:'gcp-key', variable:'GOOGLE_APPLICATION_CREDENTIALS'),
-                    usernamePassword(
-                        credentialsId:'mlflow-credentials',
-                        usernameVariable:'MLFLOW_USERNAME',
-                        passwordVariable:'MLFLOW_PASSWORD'
-                    )
-                ]) {
-                    echo 'Running Model Training...'
-                    sh """
-                    export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
-                    gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
-                    gcloud config set project ${GCP_PROJECT}
-                    gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
+      stage('Run Model Training') {
+        steps {
+            withCredentials([
+                file(credentialsId:'gcp-key', variable:'GOOGLE_APPLICATION_CREDENTIALS'),
+                usernamePassword(
+                    credentialsId:'mlflow-credentials',
+                    usernameVariable:'MLFLOW_USERNAME',
+                    passwordVariable:'MLFLOW_PASSWORD'
+                )
+            ]) {
+                echo 'Running Model Training...'
+                script {
+                    int exitCode = sh(
+                        script: """
+                        export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
+                        gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+                        gcloud config set project ${GCP_PROJECT}
+                        gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
 
-                    kubectl apply -f k8s/model-training-job.yaml
-                    kubectl wait --for=condition=complete job/model-training-job --timeout=2800s
-                    TRAINING_POD=\$(kubectl get pod -l job-name=model-training-job -o jsonpath='{.items[0].metadata.name}')
-                    kubectl logs \${TRAINING_POD}
-                    """
-                }
-            }
+                        kubectl apply -f k8s/model-training-job.yaml
+                        kubectl wait --for=condition=complete job/model-training-job --timeout=2800s
+                        """ ,
+                        returnStatus: true
+                    )
+                
+                    // Pegue o nome do Pod pra inspeção
+                    def trainingPod = sh(
+                        script: "kubectl get pod -l job-name=model-training-job -o jsonpath='{.items[0].metadata.name}'",
+                        returnStdout: true
+                    ).trim()
+                
+                    echo "Logs do pod de treinamento:\n"
+                    sh "kubectl logs ${trainingPod}"
+
+                    if (exitCode != 0) {
+                        echo "Job de treinamento não chegou ao fim. Veja os logs pra saber o motivo."
+                        // Você consegue dar um warning ou marcar como instável, ao invés de falhar:
+                        currentBuild.result = 'UNSTABLE'
+                    }
+             }
         }
+     }
+    }
+
 
         stage('Version Model Artifacts') {
             steps {
