@@ -112,62 +112,68 @@ pipeline {
 
         stage('Run Model Training') {
             steps {
-                timeout(time: 60, unit: 'MINUTES') {
-                    script {
-                        withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                            echo '🚀 Starting Model Training…'
+            timeout(time: 60, unit: 'MINUTES') {
+                script {
+                    withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
+                        echo '🚀 Starting Model Training…'
 
-                            // 1) Apply the training job
-                            sh '''
+                        // 1) Apply the training job with full PATH setup
+                        sh """
+                            export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
+                            gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
+                            gcloud config set project ${GCP_PROJECT}
+                            gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
+                            kubectl apply -f k8s/model-training-job.yaml
+                        """
+
+                        // 2) Get pod name using shell directly
+                        String pod = sh(
+                            script: """
                                 export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
-                                gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
-                                gcloud config set project ${GCP_PROJECT}
-                                gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
+                                kubectl get pod -l job-name=model-training-job -o jsonpath='{.items[0].metadata.name}'
+                            """,
+                            returnStdout: true
+                        ).trim()
+                        echo "→ Training Pod: ${pod}"
 
-                                kubectl apply -f k8s/model-training-job.yaml
-                            """
+                        // 3) Stream logs in background
+                        sh """
+                            export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
+                            echo '>>> Streaming logs'
+                            kubectl logs -f ${pod} &
+                            LOG_PID=\$!
+                        """
 
-                            // 2) Get the pod name
-                            def pod = sh(
-                                script: "kubectl get pod -l job-name=model-training-job -o jsonpath='{.items[0].metadata.name}'",
-                                returnStdout: true
-                            ).trim()
-                            echo "→ Training Pod: ${pod}"
+                        // 4) Wait for completion
+                        int status = sh(
+                            script: """
+                                export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
+                                kubectl wait --for=condition=complete job/model-training-job --timeout=2800s
+                            """,
+                            returnStatus: true
+                        )
 
-                            // 3) Stream logs in background
-                            sh """
-                                echo '>>> Streaming logs'
-                                kubectl logs -f ${pod} &
-                                LOG_PID=\$!
-                            '''
+                        // 5) Kill log stream and print summary
+                        sh """
+                            export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
+                            kill \$LOG_PID 2>/dev/null || true
+                            echo '>>> Last 100 lines:'
+                            kubectl logs ${pod} --tail=100
+                            echo '>>> Pod events:'
+                            kubectl describe pod ${pod} | awk '/Events:/{y=1;next}y'
+                        """
 
-                            // 4) Wait for completion
-                            def status = sh(
-                                script: 'kubectl wait --for=condition=complete job/model-training-job --timeout=2800s',
-                                returnStatus: true
-                            )
-
-                            // 5) Kill log stream and print summary
-                            sh '''
-                                kill \$LOG_PID || true
-                                echo '>>> Last 100 lines:'
-                                kubectl logs ${pod} --tail=100
-                                echo '>>> Pod events:'
-                                kubectl describe pod ${pod} | sed -n -e '/Events:/,$p'
-                            '''
-
-                            // 6) Fail or succeed
-                            if (status != 0) {
-                                error('❌ Training job did not complete successfully. See logs above.')
-                            } else {
-                                echo '✅ Training completed successfully'
-                            }
+                        // 6) Fail or succeed
+                        if (status != 0) {
+                            error('❌ Training job did not complete successfully. See logs above.')
+                        } else {
+                            echo '✅ Training completed successfully'
                         }
-                    }
                 }
             }
         }
-
+    }
+}
         stage('Version Model Artifacts') {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
