@@ -15,24 +15,24 @@
       <div class="form-group">
         <label>Senior Citizen:</label>
         <select name="SeniorCitizen" required>
-          <option value="0">Não</option>
-          <option value="1">Sim</option>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
         </select>
       </div>
 
       <div class="form-group">
         <label>Partner:</label>
         <select name="Partner" required>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
         </select>
       </div>
 
       <div class="form-group">
         <label>Dependents:</label>
         <select name="Dependents" required>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
         </select>
       </div>
 
@@ -52,9 +52,9 @@
       <div class="form-group">
         <label>Multiple Lines:</label>
         <select name="MultipleLines" required>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
-          <option value="No internet service">Sem serviço de telefone</option>
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
+          <option value="No internet service">No internet service</option>
         </select>
       </div>
 
@@ -70,18 +70,18 @@
       <div class="form-group">
         <label>Online Security:</label>
         <select name="OnlineSecurity" required>
-          <option value="Yes">Sim</option>
-          <option value="No">Não</option>
-          <option value="No internet service">Sem serviço de internet</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="No internet service">No internet service</option>
         </select>
       </div>
 
       <div class="form-group">
         <label>Online Backup:</label>
         <select name="OnlineBackup" required>
-          <option value="Yes">Sim</option>
-          <option value="No">Não</option>
-          <option value="No internet service">Sem serviço de internet</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="No internet service">No internet service</option>
         </select>
       </div>
     </div>
@@ -90,27 +90,27 @@
       <div class="form-group">
         <label>Device Protection:</label>
         <select name="DeviceProtection" required>
-          <option value="Yes">Sim</option>
-          <option value="No">Não</option>
-          <option value="No internet service">Sem serviço de internet</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="No internet service">No internet service</option>
         </select>
       </div>
 
       <div class="form-group">
         <label>Tech Support:</label>
         <select name="TechSupport" required>
-          <option value="Yes">Sim</option>
-          <option value="No">Não</option>
-          <option value="No internet service">Sem serviço de internet</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="No internet service">No internet service</option>
         </select>
       </div>
 
       <div class="form-group">
         <label>Streaming TV:</label>
         <select name="StreamingTV" required>
-          <option value="Yes">Sim</option>
-          <option value="No">Não</option>
-          <option value="No internet service">Sem serviço de internet</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="No internet service">No internet service</option>
         </select>
       </div>
 
@@ -126,17 +126,17 @@
       <div class="form-group">
         <label>Contract:</label>
         <select name="Contract" required>
-          <option value="Month-to-month">Mensal</option>
-          <option value="One year">1 ano</option>
-          <option value="Two year">2 anos</option>
+          <option value="Month-to-month">Month-to-month</option>
+          <option value="One year">1 year</option>
+          <option value="Two year">2 year</option>
         </select>
       </div>
 
       <div class="form-group">
         <label>Paperless Billing:</label>
         <select name="PaperlessBilling" required>
-          <option value="No">Não</option>
-          <option value="Yes">Sim</option>
+          <option value="No">No</option>
+          <option value="Yes">Yes</option>
         </select>
       </div>
 
@@ -183,7 +183,7 @@
   {% endif %}
 
   {% if calculated %}
-  <h3>Valores Calculados:</h3>
+  <h3>Calculated Metrics:</h3>
   <ul class="calc-list">
     <li><strong>No Online Services:</strong> {{ calculated['NoOnlineServices'] }}</li>
     <li><strong>No Streaming:</strong> {{ calculated['NoStreaming'] }}</li>

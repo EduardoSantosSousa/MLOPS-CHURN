@@ -209,7 +209,7 @@ def dashboard():
         #Predição:
         result = model.predict(df)[0]
         prediction_total_count.inc()  # Incrementa o contador de predições
-        prediction = "🚨 Alta chance de cancelamento" if result == 1 else "✅ Cliente estável"
+        prediction = "🚨 At High Risk of Churning" if result == 1 else "✅ At Low Risk of Churn"
 
     return render_template('dashboard.html', prediction=prediction, calculated=calculated_fields, drift_detected=drift_detected)
 

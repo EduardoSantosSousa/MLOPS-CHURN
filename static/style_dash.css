@@ -1,23 +1,32 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: #fff7f2; /* tom claro próximo de #fff4e6 */
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  background: #fff7f2;
+  margin: 0;
   padding: 20px;
   color: #333;
 }
 
 .dashboard-container {
   max-width: 1000px;
-  margin: auto;
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin: 40px auto;
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 6px 30px -10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 40px -15px rgba(0, 0, 0, 0.3);
 }
 
 h2 {
   text-align: center;
   color: #f26522;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+  font-size: 2em;
+  font-weight: bold;
 }
 
 .dashboard-form {
@@ -28,62 +37,99 @@ h2 {
 
 .form-column {
   flex: 1;
-  min-width: 300px;
+  min-width: 280px;
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
 label {
   display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
+  font-weight: 600;
+  margin-bottom: 10px;
   color: #cc5200;
+  font-size: 1.05em;
 }
 
 select,
 input[type="number"] {
   width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ffc299; /* tom suave do laranja */
-  background-color: #fffaf5;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ffc299;
+  background: #fffaf5;
   font-size: 1em;
+  transition: all 0.3s ease;
 }
 
 select:focus,
 input[type="number"]:focus {
   outline: none;
   border-color: #ff944d;
-  box-shadow: 0 0 5px rgba(255, 148, 77, 0.5);
+  box-shadow: 0 0 5px 2px rgba(255, 148, 77, 0.3);
+  background: #ffffff;
 }
 
 button {
-  background-color: #ff6600;
-  color: white;
+  background: #ff6600;
+  color: #ffffff;
   border: none;
-  padding: 12px 25px;
-  font-size: 16px;
-  border-radius: 6px;
+  padding: 14px 30px;
+  font-size: 1.05em;
+  border-radius: 8px;
   cursor: pointer;
   margin-top: 20px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   font-weight: bold;
+  box-shadow: 0 4px 10px -2px #ff944d;
 }
 
 button:hover {
-  background-color: #e65500;
+  background: #e65500;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px -2px #ff944d;
 }
 
 .result {
-  margin-top: 20px;
-  font-size: 18px;
+  margin-top: 30px;
+  font-size: 1.2em;
   color: #27ae60;
+  padding: 20px;
+  background: #eafaf1;
+  border-radius: 12px;
+  border: 1px solid #27ae60;
 }
 
 .calc-list {
-  margin-top: 10px;
-  padding-left: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  background: #fffaf5;
+  border-radius: 12px;
+  border: 1px solid #ffc299;
+}
+
+.calc-list li {
+  margin-bottom: 10px;
+  font-size: 1.05em;
+  color: #cc5200;
+}
+
+.form-button {
+  flex-basis: 100%;
+  text-align: center;
+}
+
+.form-button button {
+  margin-bottom: 20px;
+}
+
+.form-button a button {
+  background: #95a5a6;
+  box-shadow: none;
+}
+
+.form-button a button:hover {
+  background: #7f8c8d;
 }
 

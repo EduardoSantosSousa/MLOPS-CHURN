@@ -1,0 +1,12 @@
+2025-06-16 18:50:59,113 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.15.101:5000
+2025-06-16 18:50:59,113 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-16 18:50:59,129 - INFO -  * Restarting with stat
+2025-06-16 18:51:03,623 - WARNING -  * Debugger is active!
+2025-06-16 18:51:03,623 - INFO -  * Debugger PIN: 110-521-200
+2025-06-16 18:56:44,363 - INFO -  * Detected change in 'D:\\MLOPS\\MLOPS_PROJECT_TELCO_CUSTUMER_CHURCH\\application.py', reloading
+2025-06-16 18:56:44,884 - INFO -  * Restarting with stat
+2025-06-16 18:56:49,841 - WARNING -  * Debugger is active!
+2025-06-16 18:56:49,841 - INFO -  * Debugger PIN: 110-521-200
