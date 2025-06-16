@@ -68,6 +68,7 @@ pipeline {
                         set -e
                         export DOCKER_CLI_EXPERIMENTAL=enabled
                         export DOCKER_BUILDKIT=1
+                        export DOCKER_CLI_TIMEOUT=800
 
                         export PATH=\$PATH:${GCLOUD_PATH}
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
