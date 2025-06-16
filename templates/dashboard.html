@@ -8,7 +8,7 @@
 <body>
 
 <section class="dashboard-container">
-  <h2>Previsão de Churn</h2>
+  <h2>Churn Prediction</h2>
 
   <form method="POST" action="/dashboard" class="dashboard-form">
     <div class="form-column">
@@ -179,7 +179,7 @@
   </form>
 
   {% if prediction %}
-  <p class="result"><strong>Resultado:</strong> {{ prediction }}</p>
+  <p class="result"><strong>Results :</strong> {{ prediction }}</p>
   {% endif %}
 
   {% if calculated %}

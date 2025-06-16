@@ -10,3 +10,78 @@
 2025-06-16 18:56:44,884 - INFO -  * Restarting with stat
 2025-06-16 18:56:49,841 - WARNING -  * Debugger is active!
 2025-06-16 18:56:49,841 - INFO -  * Debugger PIN: 110-521-200
+2025-06-16 19:05:54,390 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.15.101:5000
+2025-06-16 19:05:54,390 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-16 19:05:54,393 - INFO -  * Restarting with stat
+2025-06-16 19:05:58,975 - WARNING -  * Debugger is active!
+2025-06-16 19:05:58,975 - INFO -  * Debugger PIN: 110-521-200
+2025-06-16 19:06:59,012 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.15.101:5000
+2025-06-16 19:06:59,013 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-16 19:06:59,014 - INFO -  * Restarting with stat
+2025-06-16 19:07:03,733 - WARNING -  * Debugger is active!
+2025-06-16 19:07:03,733 - INFO -  * Debugger PIN: 110-521-200
+2025-06-16 19:07:08,240 - INFO - 127.0.0.1 - - [16/Jun/2025 19:07:08] "GET / HTTP/1.1" 200 -
+2025-06-16 19:07:08,536 - INFO - 127.0.0.1 - - [16/Jun/2025 19:07:08] "GET /static/style.css HTTP/1.1" 200 -
+2025-06-16 19:07:08,607 - INFO - 127.0.0.1 - - [16/Jun/2025 19:07:08] "GET /static/img/logo.png HTTP/1.1" 200 -
+2025-06-16 19:07:08,615 - INFO - 127.0.0.1 - - [16/Jun/2025 19:07:08] "GET /static/img/banner2.png HTTP/1.1" 200 -
+2025-06-16 19:07:08,615 - INFO - 127.0.0.1 - - [16/Jun/2025 19:07:08] "GET /static/img/banner1.png HTTP/1.1" 200 -
+2025-06-16 19:07:08,839 - INFO - 127.0.0.1 - - [16/Jun/2025 19:07:08] "GET /static/img/banner3.png HTTP/1.1" 200 -
+2025-06-16 19:07:19,321 - INFO - 127.0.0.1 - - [16/Jun/2025 19:07:19] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-06-16 19:07:19,589 - INFO - 127.0.0.1 - - [16/Jun/2025 19:07:19] "GET /dashboard HTTP/1.1" 200 -
+2025-06-16 19:07:19,903 - INFO - 127.0.0.1 - - [16/Jun/2025 19:07:19] "GET /static/style_dash.css HTTP/1.1" 200 -
+2025-06-16 19:08:25,827 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.15.101:5000
+2025-06-16 19:08:25,829 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-16 19:08:25,831 - INFO -  * Restarting with stat
+2025-06-16 19:08:30,517 - WARNING -  * Debugger is active!
+2025-06-16 19:08:30,517 - INFO -  * Debugger PIN: 110-521-200
+2025-06-16 19:08:32,620 - INFO - 127.0.0.1 - - [16/Jun/2025 19:08:32] "GET / HTTP/1.1" 200 -
+2025-06-16 19:08:32,901 - INFO - 127.0.0.1 - - [16/Jun/2025 19:08:32] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-06-16 19:08:32,936 - INFO - 127.0.0.1 - - [16/Jun/2025 19:08:32] "[36mGET /static/img/logo.png HTTP/1.1[0m" 304 -
+2025-06-16 19:08:32,939 - INFO - 127.0.0.1 - - [16/Jun/2025 19:08:32] "[36mGET /static/img/banner1.png HTTP/1.1[0m" 304 -
+2025-06-16 19:08:32,939 - INFO - 127.0.0.1 - - [16/Jun/2025 19:08:32] "[36mGET /static/img/banner2.png HTTP/1.1[0m" 304 -
+2025-06-16 19:08:33,223 - INFO - 127.0.0.1 - - [16/Jun/2025 19:08:33] "[36mGET /static/img/banner3.png HTTP/1.1[0m" 304 -
+2025-06-16 19:08:40,755 - INFO - 127.0.0.1 - - [16/Jun/2025 19:08:40] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-06-16 19:08:41,072 - INFO - 127.0.0.1 - - [16/Jun/2025 19:08:41] "GET /dashboard HTTP/1.1" 200 -
+2025-06-16 19:08:41,384 - INFO - 127.0.0.1 - - [16/Jun/2025 19:08:41] "GET /static/style_dash.css HTTP/1.1" 200 -
+2025-06-16 19:09:16,348 - WARNING - Drift detectado em 1 colunas.
+2025-06-16 19:09:16,348 - INFO - Drift Detected.....
+2025-06-16 19:09:16,364 - INFO - 127.0.0.1 - - [16/Jun/2025 19:09:16] "POST /dashboard HTTP/1.1" 200 -
+2025-06-16 19:09:16,380 - INFO - 127.0.0.1 - - [16/Jun/2025 19:09:16] "[36mGET /static/style_dash.css HTTP/1.1[0m" 304 -
+2025-06-16 19:10:08,162 - WARNING - Drift detectado em 1 colunas.
+2025-06-16 19:10:08,162 - INFO - Drift Detected.....
+2025-06-16 19:10:08,178 - INFO - 127.0.0.1 - - [16/Jun/2025 19:10:08] "POST /dashboard HTTP/1.1" 200 -
+2025-06-16 19:10:08,192 - INFO - 127.0.0.1 - - [16/Jun/2025 19:10:08] "[36mGET /static/style_dash.css HTTP/1.1[0m" 304 -
+2025-06-16 19:10:29,788 - INFO - 127.0.0.1 - - [16/Jun/2025 19:10:29] "GET / HTTP/1.1" 200 -
+2025-06-16 19:10:30,104 - INFO - 127.0.0.1 - - [16/Jun/2025 19:10:30] "[36mGET /static/img/logo.png HTTP/1.1[0m" 304 -
+2025-06-16 19:10:30,107 - INFO - 127.0.0.1 - - [16/Jun/2025 19:10:30] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-06-16 19:10:30,115 - INFO - 127.0.0.1 - - [16/Jun/2025 19:10:30] "[36mGET /static/img/banner1.png HTTP/1.1[0m" 304 -
+2025-06-16 19:10:30,361 - INFO - 127.0.0.1 - - [16/Jun/2025 19:10:30] "[36mGET /static/img/banner2.png HTTP/1.1[0m" 304 -
+2025-06-16 19:10:30,422 - INFO - 127.0.0.1 - - [16/Jun/2025 19:10:30] "[36mGET /static/img/banner3.png HTTP/1.1[0m" 304 -
+2025-06-16 19:13:05,620 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.15.101:5000
+2025-06-16 19:13:05,620 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-16 19:13:05,620 - INFO -  * Restarting with stat
+2025-06-16 19:13:10,423 - WARNING -  * Debugger is active!
+2025-06-16 19:13:10,425 - INFO -  * Debugger PIN: 110-521-200
+2025-06-16 19:13:10,533 - INFO - 127.0.0.1 - - [16/Jun/2025 19:13:10] "GET / HTTP/1.1" 200 -
+2025-06-16 19:13:10,582 - INFO - 127.0.0.1 - - [16/Jun/2025 19:13:10] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-06-16 19:13:10,872 - INFO - 127.0.0.1 - - [16/Jun/2025 19:13:10] "[36mGET /static/img/logo.png HTTP/1.1[0m" 304 -
+2025-06-16 19:13:10,872 - INFO - 127.0.0.1 - - [16/Jun/2025 19:13:10] "[36mGET /static/img/banner1.png HTTP/1.1[0m" 304 -
+2025-06-16 19:13:10,889 - INFO - 127.0.0.1 - - [16/Jun/2025 19:13:10] "[36mGET /static/img/banner3.png HTTP/1.1[0m" 304 -
+2025-06-16 19:13:10,889 - INFO - 127.0.0.1 - - [16/Jun/2025 19:13:10] "[36mGET /static/img/banner2.png HTTP/1.1[0m" 304 -
+2025-06-16 19:13:17,606 - INFO - 127.0.0.1 - - [16/Jun/2025 19:13:17] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-06-16 19:13:17,613 - INFO - 127.0.0.1 - - [16/Jun/2025 19:13:17] "GET /dashboard HTTP/1.1" 200 -
+2025-06-16 19:13:17,856 - INFO - 127.0.0.1 - - [16/Jun/2025 19:13:17] "GET /static/style_dash.css HTTP/1.1" 200 -
+2025-06-16 19:13:56,153 - INFO - 127.0.0.1 - - [16/Jun/2025 19:13:56] "GET /dashboard HTTP/1.1" 200 -
+2025-06-16 19:13:56,165 - INFO - 127.0.0.1 - - [16/Jun/2025 19:13:56] "GET /static/style_dash.css HTTP/1.1" 200 -
