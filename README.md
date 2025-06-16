@@ -1,45 +1,257 @@
-Overview
-========
+# 🔹 Telco Customer Churn Analysis 🔹
 
-Welcome to Astronomer! This project was generated after you ran 'astro dev init' using the Astronomer CLI. This readme describes the contents of the project, as well as how to run Apache Airflow on your local machine.
+This is a **Machine Learning project aimed at analyzing Customer Churn for a Telecom Company**.
+The main objective is to **understand customer behavior, uncover key drivers of churn, and develop a robust, scalable, and reliable predictive model** that can help the business proactively identify at-risk customers and implement retention strategies **before they churn**.
 
-Project Contents
-================
+By applying **exploratory data analysis, statistical methods, and machine learning techniques**, this project aims not only to accurately predict which customers are likely to discontinue their service, but also to **derive actionable insights and recommendations**.
+These insights can empower the company’s stakeholders — from marketing to customer service — to make data-informed decisions, optimize retention campaigns, and enhance overall customer satisfaction and loyalty.
 
-Your Astro project contains the following files and folders:
+The final pipeline comprises **end-to-end components**, from **data ingestion and transformation** to **model training, evaluation, deployment, and monitoring**, allowing the solution to be integrated smoothly into a production environment and maintained over time.
 
-- dags: This folder contains the Python files for your Airflow DAGs. By default, this directory includes one example DAG:
-    - `example_astronauts`: This DAG shows a simple ETL pipeline example that queries the list of astronauts currently in space from the Open Notify API and prints a statement for each astronaut. The DAG uses the TaskFlow API to define tasks in Python, and dynamic task mapping to dynamically print a statement for each astronaut. For more on how this DAG works, see our [Getting started tutorial](https://www.astronomer.io/docs/learn/get-started-with-airflow).
-- Dockerfile: This file contains a versioned Astro Runtime Docker image that provides a differentiated Airflow experience. If you want to execute other commands or overrides at runtime, specify them here.
-- include: This folder contains any additional files that you want to include as part of your project. It is empty by default.
-- packages.txt: Install OS-level packages needed for your project by adding them to this file. It is empty by default.
-- requirements.txt: Install Python packages needed for your project by adding them to this file. It is empty by default.
-- plugins: Add custom or community plugins for your project to this file. It is empty by default.
-- airflow_settings.yaml: Use this local-only file to specify Airflow Connections, Variables, and Pools instead of entering them in the Airflow UI as you develop DAGs in this project.
+---
 
-Deploy Your Project Locally
-===========================
+## 📁 Project Structure
 
-Start Airflow on your local machine by running 'astro dev start'.
+```
+MLOPS_PROJECT_TELCO_CUSTOMER_CHURN
+├── .astro/
+├── .dvc/
+├── airflow/
+├── artifacts/
+├── config/
+├── Custom_Jenkins/
+├── dags/
+├── Documentation_Review/
+├── include/
+├── k8s/
+├── logs/
+├── mlflow/
+├── MLOPS_PROJECT_TELCO_CUSTOMER_CHURCH.egg-info/
+├── notebook/
+├── pipeline/
+├── plugins/
+├── src/
+├── static/
+├── templates/
+├── tests/
+├── utils/
+├── venv/
+├── .dockerignore
+├── .dvcignore
+├── .gitignore
+├── .env
+├── airflow_settings.yaml
+├── application.py
+├── Docker_Test_Poducao.md
+├── docker-compose.yml
+├── Dockerfile
+├── Dockerfile.dev
+├── Dockerfile.mlflow
+├── Jenkinsfile
+├── packages.txt
+├── prometheus.yml
+├── README.md
+```
+---
 
-This command will spin up five Docker containers on your machine, each for a different Airflow component:
+## 🔍 1️⃣ Exploratory Data Analysis (Jupyter)
 
-- Postgres: Airflow's Metadata Database
-- Scheduler: The Airflow component responsible for monitoring and triggering tasks
-- DAG Processor: The Airflow component responsible for parsing DAGs
-- API Server: The Airflow component responsible for serving the Airflow UI and API
-- Triggerer: The Airflow component responsible for triggering deferred tasks
+The project starts with **exploratory data analysis (EDA)** in a **Jupyter notebook**, following these steps:
 
-When all five containers are ready the command will open the browser to the Airflow UI at http://localhost:8080/. You should also be able to access your Postgres Database at 'localhost:5432/postgres' with username 'postgres' and password 'postgres'.
+- **1.1. Overview of the Dataset:**  
+  Loading the data, inspecting dimensions, column types, and previewing first few rows.
 
-Note: If you already have either of the above ports allocated, you can either [stop your existing Docker containers or change the port](https://www.astronomer.io/docs/astro/cli/troubleshoot-locally#ports-are-not-available-for-my-local-airflow-webserver).
+- **1.2. Check for Null/Missing Values:**  
+  Detect and handle missing or invalid values.
 
-Deploy Your Project to Astronomer
-=================================
+- **1.3. Check Unique Values per Column:**  
+  Quantify unique values in each categorical column.
 
-If you have an Astronomer account, pushing code to a Deployment on Astronomer is simple. For deploying instructions, refer to Astronomer documentation: https://www.astronomer.io/docs/astro/deploy-code/
+---
 
-Contact
-=======
+## 📊 2️⃣ Univariate Analysis
 
-The Astronomer CLI is maintained with love by the Astronomer team. To report a bug or suggest a change, reach out to our support.
+- **2.1. Numerical Variables:**  
+  Distribution, summary statistics, and boxplots.
+
+- **2.2. Categorical Variables:**  
+  Counts, proportions, and bar charts.
+
+---
+
+## 🔄 3️⃣ Bivariate Analysis
+
+- **3.1. Categorical vs Churn:**  
+  Analyzing Churn proportions across different categories.
+
+- **3.2. Numerical vs Churn:**  
+  Boxplot, Violin,  Histogram to visualize distributions conditioned on Churn.
+
+---
+
+## 🔗 4️⃣ Multivariate Analysis
+
+- **4.1. Pearson's Correlation:**  
+  Heatmap to show relationships between numerical variables.
+
+- **4.2. Pairplot:**  
+  Visualize multivariate relationships in a grid format.
+
+---
+
+## 🧹 5️⃣ Model Preparation
+
+- **5.1. Categorical Impact:**  
+  Apply label or one-hot encoding.
+
+- **5.2. Preprocessing:**  
+  Handle missing values, scaling, and split into training and testing.
+
+---
+
+## ⚙ 6️⃣ Model, MLflow & Deployment
+
+- The pipeline comprises a **modular and scalable architecture** designed to streamline the entire Machine Learning lifecycle. It includes:
+
+  - **Data Ingestion:**  
+    Responsible for retrieving raw data from a Google Cloud Platform (GCP) Bucket and loading it into a directory for further processing.  
+    This component handles all operations related to accessing, validating, and preparing the raw data for subsequent steps.
+
+  - **Data Processing:**  
+    Performs extensive **preprocessing and transformation** of the raw data, including cleaning, scaling, and encoding of features.  
+    It prepares both the training and testing sets in a form suitable for training a Machine Learning algorithm, addressing missing values, categorical variables, and other data issues along the way.
+
+  - **Model Training:**  
+    Initializes and fits a Machine Learning pipeline on the processed data, employing techniques to find the best hyperparameter settings and maximize performance.  
+    The pipeline is designed to be **modular**, allowing for swapping in different algorithms and components without affecting the rest of the architecture.
+
+- **MLflow Integration:**  
+  To enable **experiment tracking and reproducibility**, MLflow is integrated into the pipeline.  
+  MLflow efficiently **logs all key parameters**, **metrics**, **model versions**, and **artifacts**, making it easy to compare different runs, revert back to previous versions, and collaborate with teammates.
+
+- The pipeline is designed to be **automated, reusable, and adaptable**, allowing for smooth future improvements and scaling as the data evolves or business requirements change.
+
+
+---
+
+## 🌐 7️⃣ Web Application, Alibi-detect, Grafana, and Prometheus
+
+- The trained model is deployed as a **Flask application with a UI (HTML + CSS)**.
+
+- The application comprises:
+  
+  - **A lightweight UI:**  
+    Built with **Flask**, **Jinja2**, and **HTML + CSS**, allowing business users to:
+    - Provide customer details through a form.
+    - Receive real-time churn risk predictions alongside a summary of key factors contributing to the score.
+
+  - **API endpoint (/dashboard):**  
+    The application performs **feature transformation**, **encoding**, and **model scoring** directly from form submissions.  
+    It converts raw inputs into the required format for the trained pipeline, performs a prediction, and then displays the result back to the UI.
+
+- **Alibi-detect (KSDrift)**  
+  To **detect data drift** and track whether the distribution of incoming samples diverges from the training distribution.  
+  If **drift is detected**, a warning is raised, and a counter is incremented.  
+  Drift signals may be used to determine when the model might need **retraining or intervention**.
+
+- **Grafana + Prometheus:**  
+  To **observe and visualize API usage, latency, and drift events in real time**, the application exposes custom Prometheus metrics:
+
+  - `prediction_total_count`: total number of predictions made by the API.
+  - `ks_drift_detected_columns`: number of columns where a data drift was identified by the Kolmogorov-Smirnov (KS) test.
+  - `drift_events_total`: total number of drift events raised by the detector.
+
+  Grafana can connect directly to Prometheus to produce **dashboards and alerts**.  
+  Operations, data science, and ML engineers can visualize these signals to track service health and respond proactively when abnormalities arise.
+
+- **Docker Deployment:**  
+  The application is containerized using **Docker**, employing a lightweight `python:3.11-slim` base image.  
+  All necessary components — code, trained models, and libraries — are bundled into a single container.
+
+---
+
+## 🐳 8️⃣ Deployment (Docker, Kubernetes, CI/CD)
+
+- The application is containerized with **Docker**, deployed on **Kubernetes**, and **Jenkins** is used for CI/CD.
+
+- **DVC** is employed for **dataset and code version control** alongside Git.
+
+🔹 Workflow Overview:
+
+- This pipeline performs a full CI and CD flow:
+
+    - Clone code from Git
+
+    - Create and activate a Python virtual environment
+
+    - Validate GCP credentials
+
+    - Pull data and models from DVC
+
+    - Build and Push Docker images to Container Registry
+
+    - Apply manifests to Kubernetes
+
+    - Launch a Model Training Job in the Cluster
+
+    - Save trained Model to DVC and Git
+
+    - Clean-up resources afterwards
+
+
+🔹 Jenkinsfile Highlights:
+
+The pipeline performs the following key steps:
+
+```
+stage('Clone') { … }
+stage('Environment') { … }
+stage('DVC Pull') { … }
+stage('Docker Build and Push') { … }
+stage('Kubernetes Deployment') { … }
+stage('Model Training') { … }
+stage('Version Model Artifacts') { … }
+```
+
+🔹 Grafana Dashboard (Metrics):
+
+Grafana is deployed alongside the application to visualize key metrics and track API usage, latency, and training events in real time.
+
+🔹 Flask Application (API):
+
+Flask UI lets you manually submit customer data and view Churn predictions immediately.
+
+🔹 MLflow UI (Model Experiment)
+
+The MLflow UI displays a rich view of your experiments — including run IDs, parameters, metrics, and trained models — to aid in comparison and reproducibility.
+
+---
+
+## 🛠 Tech Stack
+
+- **Python (Flask, scikit-learn, MLflow, Alibi-detect)**
+- **Docker, Kubernetes, Grafana, Prometheus**
+- **Jenkins, DVC, Git**
+- **Jupyter notebook for Exploratory Analysis**
+- **HTML, CSS (Front-end)**
+
+---
+
+## 🚀 How to Run Locally
+
+```bash
+git clone https://github.com/EduardoSantosSousa/MLOPS-CHURN.git
+cd telco-churn
+
+# (optional) create a virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# install requirements
+pip install -r packages.txt
+
+# run application
+export FLASK_APP=application.py
+flask run
+
+
