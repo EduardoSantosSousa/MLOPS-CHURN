@@ -25,24 +25,24 @@ pipeline {
 
         stage('Setup Environment') {
             steps {
-                sh '''
+                sh """
                     python -m venv ${VENV_DIR}
                     . ${VENV_DIR}/bin/activate
                     pip install --upgrade pip setuptools wheel
                     pip install -e .
                     pip install dvc google-cloud-storage mlflow prometheus-client
-                '''
+                """
             }
         }
 
         stage('Validate GCP Credentials') {
             steps {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    sh '''
+                    sh """
                         . ${VENV_DIR}/bin/activate
                         python -c "from google.cloud import storage; storage.Client()"
                         echo "✅ GCP Credentials Validated"
-                    '''
+                    """
                 }
             }
         }
@@ -51,11 +51,11 @@ pipeline {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
                     withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                        sh '''
+                        sh """
                             . ${VENV_DIR}/bin/activate
                             export GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
                             dvc pull
-                        '''
+                        """
                     }
                 }
             }
@@ -64,7 +64,7 @@ pipeline {
         stage('Build & Push Images') {
             steps {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    sh '''
+                    sh """
                         set -e
                         export DOCKER_CLI_EXPERIMENTAL=enabled
                         export DOCKER_BUILDKIT=1
@@ -79,7 +79,7 @@ pipeline {
 
                         docker build -t gcr.io/${GCP_PROJECT}/mlflow-telco -f Dockerfile.mlflow .
                         docker push gcr.io/${GCP_PROJECT}/mlflow-telco
-                    '''
+                    """
                 }
             }
         }
@@ -87,7 +87,7 @@ pipeline {
         stage('Deploy Kubernetes Infra') {
             steps {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    sh '''
+                    sh """
                         set -e
                         export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
@@ -105,27 +105,27 @@ pipeline {
                             echo "⚠️ Deployment $deployment not found!"
                           fi
                         done
-                    '''
+                    """
                 }
             }
         }
 
         stage('Run Model Training') {
             steps {
-                timeout(time: 30, unit: 'MINUTES') {
+                timeout(time: 60, unit: 'MINUTES') {
                     script {
                         withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
                             echo '🚀 Starting Model Training…'
 
                             // 1) Apply the training job
-                            sh '''
+                            sh """
                                 export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
                                 gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                                 gcloud config set project ${GCP_PROJECT}
                                 gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
 
                                 kubectl apply -f k8s/model-training-job.yaml
-                            '''
+                            """
 
                             // 2) Get the pod name
                             def pod = sh(
@@ -135,15 +135,15 @@ pipeline {
                             echo "→ Training Pod: ${pod}"
 
                             // 3) Stream logs in background
-                            sh '''
+                            sh """
                                 echo '>>> Streaming logs'
                                 kubectl logs -f ${pod} &
                                 LOG_PID=\$!
-                            '''
+                            """
 
                             // 4) Wait for completion
                             def status = sh(
-                                script: 'kubectl wait --for=condition=complete job/model-training-job --timeout=1800s',
+                                script: 'kubectl wait --for=condition=complete job/model-training-job --timeout=2800s',
                                 returnStatus: true
                             )
 
@@ -179,7 +179,7 @@ pipeline {
                             passwordVariable: 'GIT_TOKEN'
                         )
                     ]) {
-                        sh '''
+                        sh """
                             set -e
                             . ${VENV_DIR}/bin/activate
                             export GOOGLE_APPLICATION_CREDENTIALS=${GOOGLE_APPLICATION_CREDENTIALS}
@@ -196,7 +196,7 @@ pipeline {
                                 git push https://${GIT_USER}:${GIT_TOKEN}@github.com/EduardoSantosSousa/MLOPS-CHURN.git HEAD:main
                                 dvc push
                             fi
-                        '''
+                        """
                     }
                 }
             }
@@ -207,26 +207,26 @@ pipeline {
         always {
             script {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    sh '''
+                    sh """
                         set +e
                         export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
                         gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
                         kubectl delete job model-training-job --ignore-not-found
-                    '''
+                    """
                 }
             }
         }
         success {
             script {
                 withCredentials([file(credentialsId: 'gcp-key', variable: 'GOOGLE_APPLICATION_CREDENTIALS')]) {
-                    sh '''
+                    sh """
                         export PATH=\$PATH:${GCLOUD_PATH}:${KUBECTL_AUTH_PLUGIN}
                         gcloud auth activate-service-account --key-file=${GOOGLE_APPLICATION_CREDENTIALS}
                         gcloud config set project ${GCP_PROJECT}
                         gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1
-                    '''
+                    """
                     def mlflowSvc = sh(
                         script: "kubectl get svc mlflow-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}' || echo 'n/a'",
                         returnStdout: true

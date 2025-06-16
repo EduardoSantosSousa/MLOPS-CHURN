@@ -2,6 +2,9 @@ gcloud auth activate-service-account --key-file="D:\MLOPS\MLOPS_PROJECT_TELCO_CU
 
 set GOOGLE_APPLICATION_CREDENTIALS=D:\MLOPS\MLOPS_PROJECT_TELCO_CUSTUMER_CHURCH\Project_keys.json
 
+gcloud container clusters get-credentials ml-telco-churn-cluster --region us-central1 --project serious-cat-455501-d2
+
+
 NAME: pg-telco
 LAST DEPLOYED: Fri Jun 13 23:47:56 2025
 NAMESPACE: mlops

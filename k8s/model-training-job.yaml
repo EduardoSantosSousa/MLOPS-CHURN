@@ -15,12 +15,12 @@ spec:
           - sh
           - -c
           - |
-            echo "Aguardando MLflow..."
-            until curl -s http://mlflow-service:5000; do
-              echo "Ainda não resolvido, tentando novamente em 5s"
+            echo "Aguardando MLflow na porta 5000..."
+            until nc -z mlflow-service 5000; do
+              echo "Ainda não responde, tentando em 5s"
               sleep 5
             done
-            echo "mlflow-service resolvido!"
+            echo "mlflow-service pronto!"
       containers:
       - name: trainer
         image: gcr.io/serious-cat-455501-d2/ml-telco-churn:latest
@@ -33,7 +33,7 @@ spec:
         volumeMounts:
         - name: gcp-secret
           mountPath: "/app/credentials.json"
-          subPath: "credentials.json"
+          subPath: credentials.json
       volumes:
       - name: gcp-secret
         secret:
