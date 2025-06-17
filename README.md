@@ -129,6 +129,9 @@ The project starts with **exploratory data analysis (EDA)** in a **Jupyter noteb
   To enable **experiment tracking and reproducibility**, MLflow is integrated into the pipeline.  
   MLflow efficiently **logs all key parameters**, **metrics**, **model versions**, and **artifacts**, making it easy to compare different runs, revert back to previous versions, and collaborate with teammates.
 
+![alt text](image-3.png)
+
+
 - The pipeline is designed to be **automated, reusable, and adaptable**, allowing for smooth future improvements and scaling as the data evolves or business requirements change.
 
 
@@ -167,6 +170,8 @@ The project starts with **exploratory data analysis (EDA)** in a **Jupyter noteb
 
   Grafana can connect directly to Prometheus to produce **dashboards and alerts**.  
   Operations, data science, and ML engineers can visualize these signals to track service health and respond proactively when abnormalities arise.
+
+![alt text](image-4.png)
 
 - **Docker Deployment:**  
   The application is containerized using **Docker**, employing a lightweight `python:3.11-slim` base image.  
