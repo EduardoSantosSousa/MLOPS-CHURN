@@ -91,3 +91,18 @@
  * Running on http://192.168.15.101:5000
 2025-06-16 21:10:48,386 - INFO - [33mPress CTRL+C to quit[0m
 2025-06-16 21:10:48,386 - INFO -  * Restarting with stat
+2025-06-16 21:10:53,092 - WARNING -  * Debugger is active!
+2025-06-16 21:10:53,098 - INFO -  * Debugger PIN: 110-521-200
+2025-06-16 21:10:53,208 - INFO - 127.0.0.1 - - [16/Jun/2025 21:10:53] "GET / HTTP/1.1" 200 -
+2025-06-16 21:10:53,248 - INFO - 127.0.0.1 - - [16/Jun/2025 21:10:53] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-06-16 21:10:53,535 - INFO - 127.0.0.1 - - [16/Jun/2025 21:10:53] "[36mGET /static/img/logo.png HTTP/1.1[0m" 304 -
+2025-06-16 21:10:53,535 - INFO - 127.0.0.1 - - [16/Jun/2025 21:10:53] "[36mGET /static/img/banner1.png HTTP/1.1[0m" 304 -
+2025-06-16 21:10:53,565 - INFO - 127.0.0.1 - - [16/Jun/2025 21:10:53] "[36mGET /static/img/banner2.png HTTP/1.1[0m" 304 -
+2025-06-16 21:10:53,708 - INFO - 127.0.0.1 - - [16/Jun/2025 21:10:53] "[36mGET /static/img/banner3.png HTTP/1.1[0m" 304 -
+2025-06-16 21:11:47,157 - INFO - 127.0.0.1 - - [16/Jun/2025 21:11:47] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-06-16 21:11:47,167 - INFO - 127.0.0.1 - - [16/Jun/2025 21:11:47] "GET /dashboard HTTP/1.1" 200 -
+2025-06-16 21:11:47,417 - INFO - 127.0.0.1 - - [16/Jun/2025 21:11:47] "[36mGET /static/style_dash.css HTTP/1.1[0m" 304 -
+2025-06-16 21:12:17,181 - WARNING - Drift detectado em 1 colunas.
+2025-06-16 21:12:17,181 - INFO - Drift Detected.....
+2025-06-16 21:12:17,182 - INFO - 127.0.0.1 - - [16/Jun/2025 21:12:17] "POST /dashboard HTTP/1.1" 200 -
+2025-06-16 21:12:17,197 - INFO - 127.0.0.1 - - [16/Jun/2025 21:12:17] "[36mGET /static/style_dash.css HTTP/1.1[0m" 304 -
