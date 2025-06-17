@@ -138,6 +138,8 @@ The project starts with **exploratory data analysis (EDA)** in a **Jupyter noteb
 
 - The trained model is deployed as a **Flask application with a UI (HTML + CSS)**.
 
+![alt text](image.png)
+
 - The application comprises:
   
   - **A lightweight UI:**  
