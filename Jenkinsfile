@@ -75,8 +75,12 @@ pipeline {
                         gcloud config set project ${GCP_PROJECT}
                         gcloud auth configure-docker --quiet
 
-                        docker build -t gcr.io/${GCP_PROJECT}/ml-telco-churn:latest .
-                        docker push gcr.io/${GCP_PROJECT}/ml-telco-churn:latest
+                        GIT_COMMIT_ID="$(git rev-parse --short HEAD)"
+
+                        docker build -t gcr.io/${GCP_PROJECT}/ml-telco-churn:${GIT_COMMIT_ID} .
+                        docker push gcr.io/${GCP_PROJECT}/ml-telco-churn:${GIT_COMMIT_ID}
+
+                        kubectl set image deployment/churn-app churn-app=gcr.io/${GCP_PROJECT}/ml-telco-churn:${GIT_COMMIT_ID}
 
                         docker build -t gcr.io/${GCP_PROJECT}/mlflow-telco -f Dockerfile.mlflow .
                         docker push gcr.io/${GCP_PROJECT}/mlflow-telco

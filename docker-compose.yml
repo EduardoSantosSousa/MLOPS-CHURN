@@ -17,7 +17,7 @@ services:
       --default-artifact-root file:///mlflow/artifacts
       --host 0.0.0.0
     volumes:
-      - ./mlflow:/mlflow
+      - mlflow_data:/mlflow
     networks:
       - monitoring
 
@@ -71,3 +71,6 @@ services:
 networks:
   monitoring:
     driver: bridge
+
+volumes:
+  mlflow_data:
