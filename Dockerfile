@@ -8,20 +8,20 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONPATH="/app"
 
-# Antes do COPY . .
+# Before COPY . .
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
  
 
-# Copia todo o resto da aplicação
+# Copy the rest of the application
 COPY . .
 
 # Install the package in editable mode
 RUN pip install --no-cache-dir -e .
 
-# Expõe a porta do Flask
+# Exposes the Flask port
 EXPOSE 5000
 
-# Inicia sua aplicação
+# Start your application
 CMD ["python", "application.py"]
