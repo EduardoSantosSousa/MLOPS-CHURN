@@ -179,7 +179,7 @@ class DataProcessor:
 
             feature_columns = [col for col in train_df.columns if col != self.target]
             
-            # Salva como .pkl
+            # Save as .pkl
             joblib.dump(feature_columns, FEATURES_PATH)
             logger.info(f"Feature columns saved to {FEATURES_PATH}")
 
@@ -198,15 +198,3 @@ if __name__ == "__main__":
     processor = DataProcessor(train_path = RAW_DATA_TRAIN, test_path = RAW_DATA_TEST, processed_dir = PROCESS_DATA_DIR, config_path = CONFIG_PATH)
     processor.split_data()
     processor.run()            
-
-
-
-
-
-
-
-
-
-             
-
-
