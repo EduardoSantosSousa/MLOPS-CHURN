@@ -14,7 +14,7 @@ class DataIngestion:
 
     def __init__(self, gcs_params, output_dir):
         """
-        gcs_params deve conter:
+       gcs_params must contain:
           - "project_id": "<your_gcp_project_id>"
           - "bucket_name": "<your_bucket_name>"
           - "file_name": "<your_file_name_in_gcs>"
@@ -26,7 +26,7 @@ class DataIngestion:
 
     def extract_data(self):
         """
-        Baixa o CSV diretamente do GCS.
+        Download CSV directly from GCS.
         """
         try:
             logger.info("Starting GCS Download.")
@@ -49,7 +49,7 @@ class DataIngestion:
 
     def save_data(self, df):
         """
-        Salva o CSV para um diretório local.
+        Saves the CSV to a local directory.
         """
         try:
             local_file = os.path.join(self.output_dir, "Telco-Customer-Churn.csv")
