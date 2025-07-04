@@ -1,33 +1,33 @@
-/* Reset box-sizing para todos */
+/* Reset box-sizing for everyone */
 * {
   box-sizing: border-box;
 }
 
 
-/* Estilos básicos do corpo */
+/* Basic Body Styles */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   color: #333;
 }
 
-/* Header com altura menor e centralizado */
+/* Header with lower height and centered*/
 header {
-  background-color: #f26522; /* ou seu tom de laranja */
+  background-color: #f26522; /* or its shade of orange */
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 150px; /* Reduzido */
+  height: 150px; /* Reduced */
 }
 
-/* Container centralizado */
+/* Centralized container */
 .header-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Logo com tamanho adequado */
+/* Logo with appropriate size*/
 .logo {
   max-width: 200px;
   height: auto;
@@ -78,7 +78,7 @@ nav a {
   border-radius: 4px;
 }
 
-/* Container dos planos */
+/* Business Plan Container */
 .plans {
   display: flex;
   flex-wrap: wrap;
@@ -88,7 +88,7 @@ nav a {
   background: #fafafa;
 }
 
-/* Cards de plano */
+/* Business Plan cards */
 .plan {
   background: white;
   border-radius: 16px;
@@ -104,14 +104,14 @@ nav a {
   justify-content: space-between;
 }
 
-/* Hover nos cards */
+/* Hover in cards */
 .plan:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 30px rgba(255, 102, 0, 0.3);
   border-color: #ff6600;
 }
 
-/* Título do plano */
+/* Title of plan */
 .plan h2 {
   font-size: 1.8rem;
   margin-bottom: 20px;
@@ -119,7 +119,7 @@ nav a {
   font-weight: 700;
 }
 
-/* Lista de recursos */
+/* Feature list */
 .plan p {
   font-size: 1.1rem;
   margin: 10px 0;
@@ -127,7 +127,7 @@ nav a {
   flex-grow: 1;
 }
 
-/* Botão de ação */
+/* Action button */
 .plan button {
   background: #ff6600;
   border: none;
@@ -145,7 +145,7 @@ nav a {
   background-color: #e65500;
 }
 
-/* Destaque para plano intermediário (exemplo) */
+/*Highlight for intermediate plan */
 .plan.intermediate {
   border-color: #ff944d;
   box-shadow: 0 10px 30px rgba(255, 148, 77, 0.4);
@@ -156,7 +156,7 @@ nav a {
   color: #ff944d;
 }
 
-/* Responsividade */
+/* Responsiveness */
 @media (max-width: 768px) {
   .plans {
     flex-direction: column;
@@ -214,7 +214,7 @@ footer {
   }
 }
 
-/* Área de login */
+/* Login Area */
 .login-area {
   max-width: 450px;
   margin: 50px auto;
@@ -225,7 +225,7 @@ footer {
   text-align: center;
 }
 
-/* Tabs de login */
+/* Login Tabs */
 .login-tabs {
   display: flex;
   justify-content: center;
@@ -249,9 +249,9 @@ footer {
   color: white;
 }
 
-/* Conteúdo das abas */
+/* Tab content */
 .login-tab-content {
-  display: none; /* será ativado via JS na aba ativa */
+  display: none; /* will be activated via JS in the active tab */
   background: #fff;
   padding: 20px;
   border-radius: 8px;
@@ -261,7 +261,7 @@ footer {
   display: block;
 }
 
-/* Formulário dentro do conteúdo das abas */
+/* Form within tab content */
 .login-tab-content form {
   display: flex;
   flex-direction: column;
@@ -297,7 +297,7 @@ footer {
 
 .slide-track {
   display: flex;
-  width: calc(300px * 6); /* largura da imagem x número de imagens */
+  width: calc(300px * 6); /* image width x number of images */
   animation: scroll 20s linear infinite;
 }
 
@@ -330,10 +330,10 @@ footer {
   display: block;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease;  /* Suaviza o efeito */
+  transition: transform 0.3s ease;  /* Softens the effect */
 }
 
 .slide-track .imagem img:hover {
-  transform: scale(1.05); /* Aumenta 5% ao passar o mouse */
+  transform: scale(1.05); /*Increases 5% on mouseover */
 }
 
