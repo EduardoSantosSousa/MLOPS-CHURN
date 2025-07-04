@@ -21,6 +21,6 @@ mlruns/
 text.txt
 Docker_Teste_Poducao.md
 
-# Ignorar modelos treinados
+# Ignore trained models
 *.pkl
 *.joblib
