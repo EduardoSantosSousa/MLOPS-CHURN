@@ -5,9 +5,9 @@ gcs_config:
   file_name: "Telco-Customer-Churn.csv"
 
 mlflow_config:
-  tracking_username: "mlflowadmin"  # Ou deixe vazio se usar variáveis de ambiente
-  tracking_password: "mlflowadmin"  # Ou deixe vazio se usar variáveis de ambiente
-  tracking_uri: "http://mlflow-service:5000"  # URI base (sem credenciais)
+  tracking_username: "mlflowadmin" # Or leave empty if using environment variables
+  tracking_password: "mlflowadmin"  # Or leave empty if using environment variables
+  tracking_uri: "http://mlflow-service:5000"  # Base URI (without credentials)
 
 split_data_config:
   train_ratio : 0.8
