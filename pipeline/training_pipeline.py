@@ -21,20 +21,20 @@ def setup_mlflow(config):
 
 def main():
     try:
-        # 1) Lê configurações
+        #1) Reads settings
         config = read_yaml(CONFIG_PATH)
 
-        # Configura MLflow
+        # Configure MLflow
         setup_mlflow(config)
 
-        # Define experimento
+        # Define experiment
         experiment_name = config.get("mlflow_config", {}).get("experiment_name", "default")
         mlflow.set_experiment(experiment_name)
         logger.info(f"Set MLflow experiment: {experiment_name}")
 
-        # Cria um run principal que engloba todo o pipeline
+        # Creates a main run that encompasses the entire pipeline
         with mlflow.start_run(run_name="full_training_pipeline"):
-            # 2) Ingestão
+            #2) Ingestion
             logger.info("=== STEP 1: Data Ingestion ===")
             ingestion = DataIngestion(
                 gcs_params={
@@ -46,7 +46,7 @@ def main():
             )
             ingestion.run()
 
-            # 3) Processamento
+            #3) Processing
             logger.info("=== STEP 2: Data Processing ===")
             processor = DataProcessor(
                 train_path=RAW_DATA_TRAIN,
@@ -57,7 +57,7 @@ def main():
             processor.split_data()
             processor.run()
 
-            # 4) Treinamento
+            #4) Training
             logger.info("=== STEP 3: Model Training ===")
             trainer = ModelTrainer(
                 train_path=PROCESSED_TRAIN_DATA_PATH,
@@ -65,7 +65,7 @@ def main():
                 config_path=CONFIG_PATH
             )
             X_train, y_train, X_test, y_test = trainer.load_data()
-            # Dentro do train_model já há um nested run e logs de métricas e modelo
+            # Inside train_model there is already a nested run and metrics and model logs
             trainer.train_model(X_train, y_train, X_test, y_test)
 
         logger.info("=== PIPELINE COMPLETED SUCCESSFULLY ===")
