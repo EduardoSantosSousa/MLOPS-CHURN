@@ -15,12 +15,12 @@ spec:
           - sh
           - -c
           - |
-            echo "Aguardando MLflow na porta 5000..."
+            echo "Waiting for MLflow on port 5000..."
             until nc -z mlflow-service 5000; do
               echo "Ainda não responde, tentando em 5s"
               sleep 5
             done
-            echo "mlflow-service pronto!"
+            echo "mlflow-service ready!"
       containers:
       - name: trainer
         image: gcr.io/serious-cat-455501-d2/ml-telco-churn:latest
