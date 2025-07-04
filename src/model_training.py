@@ -77,7 +77,7 @@ class ModelTrainer:
                 mlflow.log_metric("precision", precision)
                 mlflow.log_metric("recall", recall)
     
-                # Salvando o modelo localmente primeiro
+                # Saving the model locally first
                 self.save_model(best_model)
                 
                 logger.info(f"Best parameters: {grid_search.best_params_}")
@@ -98,8 +98,3 @@ if __name__ == "__main__":
 
     X_train, y_train, X_test, y_test = trainer.load_data()
     trainer.train_model(X_train, y_train, X_test, y_test)
-
-
-
-
-
