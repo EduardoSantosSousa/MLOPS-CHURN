@@ -20,7 +20,7 @@
     }
   }
 
-  // Mostrar aba de usuário por padrão
+  // Show user tab by default
   showTab('user');
 </script>
 
@@ -80,7 +80,7 @@
     showSlide(currentSlide);
   }
 
-  // Troca automática a cada 3 segundos
+  // Automatic switching every 3 seconds
   setInterval(nextSlide, 3000);
 </script>
 
@@ -91,7 +91,7 @@
     <button class="tab-button" onclick="showTab('staff')">Funcionário</button>
   </div>
 
-  <!-- Usuário -->
+  <!-- User -->
   <div class="login-tab-content" id="tab-user">
     <form method="POST" action="/login">
       <input type="email" name="email" placeholder="E-mail do usuário" required>
@@ -100,7 +100,7 @@
     </form>
   </div>
 
-  <!-- Funcionário -->
+  <!-- Employee -->
   <div class="login-tab-content" id="tab-staff" style="display: none;">
     <form method="POST" action="/login">
       <input type="email" name="email" placeholder="E-mail corporativo" required>
