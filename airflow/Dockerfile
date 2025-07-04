@@ -1,6 +1,6 @@
 FROM quay.io/astronomer/astro-runtime:12.6.0
 
-# Instale ferramentas do sistema necessárias para compilar pacotes Python (como pandas)
+# Install system tools needed to compile Python packages (such as pandas)
 USER root
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
     curl \
     && apt-get clean
 
-# Volte para o usuário airflow (padrão da imagem)
+# Switch back to airflow user (default image)
 USER astro
 
-# Instale as dependências Python
+# Install Python dependencies
 RUN pip install apache-airflow-providers-google
